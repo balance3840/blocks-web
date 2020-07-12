@@ -3,6 +3,7 @@ import React from "react";
 import LoginContainer from "./Login";
 import DashboardContainer from "./Dashboard";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import { AuthWrapper } from "./auth-wrapper";
 
 /**
  * Renders the private routes.
@@ -12,11 +13,13 @@ import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 function renderPrivateRoutes() {
   return (
     <BrowserRouter>
-      <Switch>
-        <Route exact path="/" component={DashboardContainer} />
-        <Route path="/dashboard" component={DashboardContainer} />
-        <Redirect to="/" />
-      </Switch>
+      <AuthWrapper>
+        <Switch>
+          <Route exact path="/" component={DashboardContainer} />
+          <Route path="/dashboard" component={DashboardContainer} />
+          <Redirect to="/" />
+        </Switch>
+      </AuthWrapper>
     </BrowserRouter>
   );
 }
@@ -40,7 +43,5 @@ function renderGuestRoutes() {
 
 export default function Root() {
   const user = JSON.parse(localStorage.getItem("user"));
-  return (
-    user && user.token && renderPrivateRoutes() || renderGuestRoutes()
-  )
+  return (user && user.token && renderPrivateRoutes()) || renderGuestRoutes();
 }
