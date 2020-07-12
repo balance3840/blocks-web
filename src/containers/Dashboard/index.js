@@ -100,16 +100,10 @@ function render(groups) {
                           </div>
                         </div>
                       </th>
-                  <td>{group.description}</td>
-                      <td>
-                        {group.grade}
-                      </td>
-                      <td>
-                        {group.level}
-                      </td>
-                      <td>
-                        {group.stage_id}
-                      </td>
+                      <td>{group.description}</td>
+                      <td>{group.grade}</td>
+                      <td>{group.level}</td>
+                      <td>{group.stage_id}</td>
                       <td className="text-right">
                         <div className="dropdown">
                           <a
