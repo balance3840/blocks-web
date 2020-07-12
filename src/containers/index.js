@@ -39,5 +39,8 @@ function renderGuestRoutes() {
 }
 
 export default function Root() {
-  return renderGuestRoutes();
+  const user = JSON.parse(localStorage.getItem("user"));
+  return (
+    user && user.token && renderPrivateRoutes() || renderGuestRoutes()
+  )
 }
