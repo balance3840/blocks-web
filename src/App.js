@@ -1,26 +1,17 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { ContextProvider } from './provider/provider';
+import TestContainer from './containers/TestContainer';
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <ContextProvider>
+      <div className="App">
+        <h1>Hello CodeSandbox</h1>
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          <strong>Migrated from Redux to React Context Provider</strong>
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+        <TestContainer />
+      </div>
+    </ContextProvider>
   );
 }
-
-export default App;
