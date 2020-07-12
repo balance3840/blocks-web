@@ -1,8 +1,19 @@
-import { SET_NAME } from "../constants/user.constants";
+import { SET_NAME, LOGIN, LOGIN_FAILURE, LOGIN_SUCCESS } from "../constants/user.constants";
 
 const initialState = {
-  name: 'rENSY',
-  lastname: ''
+  id: null,
+  name: "",
+  lastname: "",
+  email: "",
+  email_verified_at: null,
+  role_id: null,
+  institute_id: null,
+  created_at: null,
+  updated_at: null,
+  token: "",
+  token_type: "",
+  loading: false,
+  error: false,
 };
 
 /**
@@ -16,7 +27,26 @@ const userReducer = (state = initialState, action) => {
     case SET_NAME:
       return {
         ...state,
-        name: action.payload
+        name: action.payload,
+      };
+    case LOGIN:
+      return {
+        ...state,
+        loading: true,
+        error: false
+      };
+    case LOGIN_SUCCESS:
+      return {
+        ...state,
+        ...action.payload,
+        loading: false,
+        error: false
+      };
+    case LOGIN_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload
       };
     default:
       return { ...state };
