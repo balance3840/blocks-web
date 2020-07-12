@@ -1,6 +1,8 @@
 import React from "react";
 import connect from "../../provider/connect";
 import { login, loginSuccess, loginFailure } from "../../actions/user.actions";
+import { BASE_URL } from "../../utils/api";
+import { loginRequest } from "../../api/users.requests";
 
 /**
  * a factory function that connects to the provider
@@ -50,7 +52,7 @@ function LoginContainer({
     <div>
       Loading: {loading.toString()}, Error: {error.toString()}
       <h1>Login container</h1>
-      <button onClick={() => onSubmit("ramiro.estrellac@gmail.com", "1234567")}>
+      <button onClick={() => onSubmit("ramiro.estrellac@gmail.com", "123456")}>
         Login
       </button>
     </div>
@@ -59,18 +61,7 @@ function LoginContainer({
   function onSubmit(email, password) {
     const data = { email, password };
     dispatchLogin();
-    fetch("http://localhost:8080/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify(data),
-      cache: "no-cache",
-    })
-      .then(function (response) {
-        return response.json();
-      })
+    loginRequest(data)
       .then(function (data) {
         if (data && data.status === 200) {
           const { token, token_type } = data.data;
