@@ -1,4 +1,4 @@
-import { BASE_URL, REQUEST_HEADERS, REQUEST_HEADERS_WITH_AUTH } from "../utils/api";
+import { BASE_URL, REQUEST_HEADERS_WITH_AUTH } from "../utils/api";
 
 export function getGroupsRequest() {
   return fetch(`${BASE_URL}/groups`, {
@@ -15,6 +15,17 @@ export function getGroupMembers(id) {
     method: "GET",
     headers: REQUEST_HEADERS_WITH_AUTH,
     cache: "no-cache"
+  }).then((response) => {
+    return response.json();
+  });
+}
+
+export function createGroup(data) {
+  return fetch(`${BASE_URL}/groups`, {
+    method: "POST",
+    headers: REQUEST_HEADERS_WITH_AUTH,
+    cache: "no-cache",
+    body: JSON.stringify(data)
   }).then((response) => {
     return response.json();
   });

@@ -1,6 +1,9 @@
 import React, { Fragment } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 export function AuthWrapper({ children }) {
+  const location = useLocation();
+  const path = location.pathname;
   return (
     <Fragment>
       <nav
@@ -39,16 +42,28 @@ export function AuthWrapper({ children }) {
                 {/* Nav items */}
                 <ul className="navbar-nav">
                   <li className="nav-item">
-                    <a className="nav-link active" href="dashboard.html">
+                    <Link
+                      to={"/dashboard"}
+                      className={`nav-link ${
+                        path === "/" || path.includes("/dashboard")
+                          ? "active"
+                          : ""
+                      }`}
+                    >
                       <i className="ni ni-tv-2 text-primary" />
                       <span className="nav-link-text">Dashboard</span>
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="icons.html">
-                      <i className="ni ni-planet text-orange" />
-                      <span className="nav-link-text">Icons</span>
-                    </a>
+                    <Link
+                      to={"/groups"}
+                      className={`nav-link ${
+                        path.includes("/groups") ? "active" : ""
+                      }`}
+                    >
+                      <i className="fa fa-users text-primary" />
+                      <span className="nav-link-text">Grupos</span>
+                    </Link>
                   </li>
                   <li className="nav-item">
                     <a className="nav-link" href="map.html">
@@ -504,9 +519,7 @@ export function AuthWrapper({ children }) {
         {/* Header */}
         {/* Header */}
         {/* Page content */}
-        <div className="container-fluid">
-            {children}
-        </div>
+        <div className="container-fluid">{children}</div>
       </div>
     </Fragment>
   );

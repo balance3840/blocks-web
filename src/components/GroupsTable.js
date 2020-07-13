@@ -4,8 +4,15 @@ import { Link } from "react-router-dom";
 export default function GroupsTable({ groups }) {
   return (
     <div className="card">
-      <div className="card-header border-0">
-        <h3 className="mb-0">Mis grupos</h3>
+      <div className="card-header border-0 d-flex justify-content-between align-items-center">
+        <div>
+          <h3 className="mb-0">Mis grupos</h3>
+        </div>
+        <div>
+          <Link to={"/groups/create"} className="btn btn-primary">
+             Crear grupo
+          </Link>
+        </div>
       </div>
       <div className="table-responsive">
         <table className="table align-items-center table-flush">
@@ -28,7 +35,7 @@ export default function GroupsTable({ groups }) {
           </thead>
           <tbody className="list">
             {groups.map((group) => (
-              <tr>
+              <tr key={group.id}>
                 <th scope="row">
                   <div className="media align-items-center">
                     <div className="media-body">
