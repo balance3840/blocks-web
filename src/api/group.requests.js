@@ -10,6 +10,16 @@ export function getGroupsRequest() {
   });
 }
 
+export function getGroup(id) {
+  return fetch(`${BASE_URL}/groups/${id}`, {
+    method: "GET",
+    headers: REQUEST_HEADERS_WITH_AUTH,
+    cache: "no-cache"
+  }).then((response) => {
+    return response.json();
+  });
+}
+
 export function getGroupMembers(id) {
   return fetch(`${BASE_URL}/groups/${id}/members`, {
     method: "GET",
@@ -23,6 +33,17 @@ export function getGroupMembers(id) {
 export function createGroup(data) {
   return fetch(`${BASE_URL}/groups`, {
     method: "POST",
+    headers: REQUEST_HEADERS_WITH_AUTH,
+    cache: "no-cache",
+    body: JSON.stringify(data)
+  }).then((response) => {
+    return response.json();
+  });
+}
+
+export function editGroup(id, data) {
+  return fetch(`${BASE_URL}/groups/${id}`, {
+    method: "PUT",
     headers: REQUEST_HEADERS_WITH_AUTH,
     cache: "no-cache",
     body: JSON.stringify(data)

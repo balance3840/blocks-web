@@ -65,12 +65,12 @@ export default function GroupsTable({ groups }) {
                       >
                         Ver miembros
                       </Link>
-                      <a className="dropdown-item" href="#">
-                        Another action
-                      </a>
-                      <a className="dropdown-item" href="#">
-                        Something else here
-                      </a>
+                      <Link
+                        to={`/groups/${group.id}/edit`}
+                        className="dropdown-item"
+                      >
+                        Editar
+                      </Link>
                     </div>
                   </div>
                 </td>
