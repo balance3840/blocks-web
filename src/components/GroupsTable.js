@@ -1,0 +1,110 @@
+import React from "react";
+import { Link } from "react-router-dom";
+
+export default function GroupsTable({ groups }) {
+  return (
+    <div className="card">
+      <div className="card-header border-0">
+        <h3 className="mb-0">Mis grupos</h3>
+      </div>
+      <div className="table-responsive">
+        <table className="table align-items-center table-flush">
+          <thead className="thead-light">
+            <tr>
+              <th scope="col" className="sort" data-sort="nombre">
+                nombre
+              </th>
+              <th scope="col" className="sort" data-sort="descripcion">
+                descripcion
+              </th>
+              <th scope="col" className="sort" data-sort="grado">
+                grado
+              </th>
+              <th scope="col" data-sort="nivel">
+                nivel
+              </th>
+              <th scope="col" />
+            </tr>
+          </thead>
+          <tbody className="list">
+            {groups.map((group) => (
+              <tr>
+                <th scope="row">
+                  <div className="media align-items-center">
+                    <div className="media-body">
+                      <span className="name mb-0 text-sm">{group.name}</span>
+                    </div>
+                  </div>
+                </th>
+                <td>{group.description}</td>
+                <td>{group.grade}</td>
+                <td>{group.stage.name}</td>
+                <td className="text-right">
+                  <div className="dropdown">
+                    <a
+                      className="btn btn-sm btn-icon-only text-light"
+                      href="#"
+                      role="button"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      <i className="fas fa-ellipsis-v" />
+                    </a>
+                    <div className="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                      <Link
+                        to={`/groups/${group.id}/members`}
+                        className="dropdown-item"
+                      >
+                        Ver miembros
+                      </Link>
+                      <a className="dropdown-item" href="#">
+                        Another action
+                      </a>
+                      <a className="dropdown-item" href="#">
+                        Something else here
+                      </a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="card-footer py-4">
+        <nav aria-label="...">
+          <ul className="pagination justify-content-end mb-0">
+            <li className="page-item disabled">
+              <a className="page-link" href="#" tabIndex={-1}>
+                <i className="fas fa-angle-left" />
+                <span className="sr-only">Previous</span>
+              </a>
+            </li>
+            <li className="page-item active">
+              <a className="page-link" href="#">
+                1
+              </a>
+            </li>
+            <li className="page-item">
+              <a className="page-link" href="#">
+                2 <span className="sr-only">(current)</span>
+              </a>
+            </li>
+            <li className="page-item">
+              <a className="page-link" href="#">
+                3
+              </a>
+            </li>
+            <li className="page-item">
+              <a className="page-link" href="#">
+                <i className="fas fa-angle-right" />
+                <span className="sr-only">Next</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  );
+}

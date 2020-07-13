@@ -24,7 +24,7 @@ export function AuthWrapper({ children }) {
             <div className="sidenav-header  align-items-center">
               <a className="navbar-brand" href="javascript:void(0)">
                 <img
-                  src="../assets/img/brand/blue.png"
+                  src="/assets/img/brand/blue.png"
                   className="navbar-brand-img"
                   alt="..."
                 />
@@ -252,7 +252,7 @@ export function AuthWrapper({ children }) {
                             {/* Avatar */}
                             <img
                               alt="Image placeholder"
-                              src="../assets/img/theme/team-1.jpg"
+                              src="/assets/img/theme/team-1.jpg"
                               className="avatar rounded-circle"
                             />
                           </div>
@@ -280,7 +280,7 @@ export function AuthWrapper({ children }) {
                             {/* Avatar */}
                             <img
                               alt="Image placeholder"
-                              src="../assets/img/theme/team-2.jpg"
+                              src="/assets/img/theme/team-2.jpg"
                               className="avatar rounded-circle"
                             />
                           </div>
@@ -308,7 +308,7 @@ export function AuthWrapper({ children }) {
                             {/* Avatar */}
                             <img
                               alt="Image placeholder"
-                              src="../assets/img/theme/team-3.jpg"
+                              src="/assets/img/theme/team-3.jpg"
                               className="avatar rounded-circle"
                             />
                           </div>
@@ -336,7 +336,7 @@ export function AuthWrapper({ children }) {
                             {/* Avatar */}
                             <img
                               alt="Image placeholder"
-                              src="../assets/img/theme/team-4.jpg"
+                              src="/assets/img/theme/team-4.jpg"
                               className="avatar rounded-circle"
                             />
                           </div>
@@ -364,7 +364,7 @@ export function AuthWrapper({ children }) {
                             {/* Avatar */}
                             <img
                               alt="Image placeholder"
-                              src="../assets/img/theme/team-5.jpg"
+                              src="/assets/img/theme/team-5.jpg"
                               className="avatar rounded-circle"
                             />
                           </div>
@@ -460,7 +460,7 @@ export function AuthWrapper({ children }) {
                       <span className="avatar avatar-sm rounded-circle">
                         <img
                           alt="Image placeholder"
-                          src="../assets/img/theme/team-4.jpg"
+                          src="/assets/img/theme/team-4.jpg"
                         />
                       </span>
                       <div className="media-body  ml-2  d-none d-lg-block">

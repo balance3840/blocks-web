@@ -9,3 +9,13 @@ export function getGroupsRequest() {
     return response.json();
   });
 }
+
+export function getGroupMembers(id) {
+  return fetch(`${BASE_URL}/groups/${id}/members`, {
+    method: "GET",
+    headers: REQUEST_HEADERS_WITH_AUTH,
+    cache: "no-cache"
+  }).then((response) => {
+    return response.json();
+  });
+}

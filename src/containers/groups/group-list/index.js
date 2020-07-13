@@ -1,14 +1,14 @@
-import React, { useEffect, Fragment, useState } from "react";
-import connect from "../../provider/connect";
+import React, { useEffect, useState } from "react";
+import connect from "../../../provider/connect";
 import {
   getGroups,
   getGroupsSuccess,
   getGroupsFailure,
-} from "../../actions/group.actions";
-import { getGroupsRequest } from "../../api/group.requests";
+} from "../../../actions/group.actions";
+import { getGroupsRequest } from "../../../api/group.requests";
 
 import Loader from "react-loader-spinner";
-import GroupsTable from "../../components/GroupsTable";
+import GroupsTable from "../../../components/GroupsTable";
 
 /**
  * a factory function that connects to the provider
@@ -46,7 +46,7 @@ const mapDispatchToProps = (dispatch) => {
 const withConnect = (Component) =>
   connect(mapStateToProps, mapDispatchToProps)(Component);
 
-export default withConnect(DashboardContainer);
+export default withConnect(GroupListContainer);
 
 function renderLoading() {
   return (
@@ -70,7 +70,7 @@ function render(groups) {
   );
 }
 
-function DashboardContainer({
+function GroupListContainer({
   groups,
   loading,
   dispatchGetGroups,
