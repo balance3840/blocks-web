@@ -77,6 +77,12 @@ export default function GroupsTable({ groups }) {
                       >
                         Crear tarea
                       </Link>
+                      <Link
+                        to={`/groups/${group.id}/tasks`}
+                        className="dropdown-item"
+                      >
+                        Ver tareas
+                      </Link>
                     </div>
                   </div>
                 </td>

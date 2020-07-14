@@ -30,6 +30,16 @@ export function getGroupMembers(id) {
   });
 }
 
+export function getGroupTasks(id) {
+  return fetch(`${BASE_URL}/groups/${id}/tasks`, {
+    method: "GET",
+    headers: REQUEST_HEADERS_WITH_AUTH,
+    cache: "no-cache"
+  }).then((response) => {
+    return response.json();
+  });
+}
+
 export function createGroup(data) {
   return fetch(`${BASE_URL}/groups`, {
     method: "POST",

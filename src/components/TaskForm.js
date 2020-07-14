@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { getStatuses } from "../api/status.requests";
 
 export default function TaskForm({ group, onSubmit }) {
-    //console.log(group);
   const [statuses, setStatuses] = useState([]);
   const [form, setForm] = useState({
     name: "",
@@ -16,7 +15,10 @@ export default function TaskForm({ group, onSubmit }) {
     if (statuses.length === 0) {
       getStatuses().then((response) => {
         setStatuses(response.data);
-        setForm({ ...form, status_id: response.data ? response.data[0].id : null });
+        setForm({
+          ...form,
+          status_id: response.data ? response.data[0].id : null,
+        });
       });
     }
   }, [statuses]);
