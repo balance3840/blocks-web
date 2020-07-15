@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { getStatuses } from "../api/status.requests";
 
-export default function TaskForm({ group, onSubmit }) {
+export default function TaskForm({ group, task, onSubmit }) {
   const [statuses, setStatuses] = useState([]);
   const [form, setForm] = useState({
-    name: "",
-    title: "",
-    description: "",
-    group_id: group.id,
+    name: task ? task.name : "",
+    title: task ? task.title : "",
+    description: task ? task.description : "",
+    group_id: task ? task.group_id : group ? group.id : null,
     status_id: null,
   });
 
@@ -30,7 +30,9 @@ export default function TaskForm({ group, onSubmit }) {
           <div className="card-header">
             <div className="row align-items-center">
               <div className="col-8">
-                <h3 className="mb-0">Crear tarea</h3>
+                <h3 className="mb-0">
+                  {task ? "Editar tarea" : "Crear tarea"}
+                </h3>
               </div>
             </div>
           </div>
@@ -123,7 +125,7 @@ export default function TaskForm({ group, onSubmit }) {
                     className="btn btn-primary"
                     onClick={(e) => handleSubmit(e)}
                   >
-                    Crear
+                    {task ? "Editar" : "Crear"}
                   </button>
                 </div>
               </div>

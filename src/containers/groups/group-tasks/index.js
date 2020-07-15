@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getGroupTasks } from "../../../api/group.requests";
+import { Link } from "react-router-dom";
 
 export default function GroupTasksContainer({ match: { params } }) {
   const [tasks, setTasks] = useState([]);
@@ -22,9 +23,37 @@ export default function GroupTasksContainer({ match: { params } }) {
               <div className="card-body">
                 <div className="row">
                   <div className="col">
-                    <h5 className="card-title text-uppercase text-muted mb-0">
-                      {task.status.name}
-                    </h5>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <h5 className="card-title text-uppercase text-muted mb-0">
+                        {task.status.name}
+                      </h5>
+                      <div className="dropdown">
+                        <a
+                          className="btn btn-sm btn-icon-only text-light"
+                          href="#"
+                          role="button"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                          <i className="fas fa-ellipsis-v" />
+                        </a>
+                        <div className="dropdown-menu dropdown-menu-bottom dropdown-menu-arrow">
+                          <Link
+                            to={`/tasks/${task.id}/edit`}
+                            className="dropdown-item"
+                          >
+                            Editar
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
                     <span className="h2 font-weight-bold mb-0">
                       {task.title}
                     </span>

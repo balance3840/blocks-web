@@ -66,10 +66,15 @@ export function AuthWrapper({ children }) {
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="map.html">
-                      <i className="ni ni-pin-3 text-primary" />
-                      <span className="nav-link-text">Google</span>
-                    </a>
+                    <Link
+                      to={"/tasks"}
+                      className={`nav-link ${
+                        path.includes("/tasks") ? "active" : ""
+                      }`}
+                    >
+                      <i className="fa fa-tasks text-primary" />
+                      <span className="nav-link-text">Tareas</span>
+                    </Link>
                   </li>
                   <li className="nav-item">
                     <a className="nav-link" href="profile.html">
