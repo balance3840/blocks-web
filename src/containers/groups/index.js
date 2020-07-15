@@ -6,6 +6,7 @@ import GroupCreateContainer from './group-create';
 import GroupEditContainer from './group-edit';
 import GroupTaskCreateContainer from './group-task-create';
 import GroupTasksContainer from './group-tasks';
+import GroupMembersAddContainer from './group-members-add';
 
 export default function GroupsContainer() {
     return (
@@ -13,6 +14,7 @@ export default function GroupsContainer() {
             <Route exact path="/groups" component={GroupListContainer} />
             <Route exact path="/groups/create" component={GroupCreateContainer} />
             <Route path="/groups/:id/edit" component={GroupEditContainer} />
+            <Route path="/groups/:id/members/add" component={GroupMembersAddContainer} />
             <Route path="/groups/:id/members" component={GroupMembersContainer} />
             <Route path="/groups/:id/tasks/add" component={GroupTaskCreateContainer} />
             <Route path="/groups/:id/tasks" component={GroupTasksContainer} />

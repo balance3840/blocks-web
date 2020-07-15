@@ -83,6 +83,12 @@ export default function GroupsTable({ groups }) {
                       >
                         Ver tareas
                       </Link>
+                      <Link
+                        to={`/groups/${group.id}/members/add`}
+                        className="dropdown-item"
+                      >
+                        Añadir usuarios
+                      </Link>
                     </div>
                   </div>
                 </td>
