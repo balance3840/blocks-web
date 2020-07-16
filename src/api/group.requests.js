@@ -61,3 +61,14 @@ export function editGroup(id, data) {
     return response.json();
   });
 }
+
+export function addMembers(id, data) {
+  return fetch(`${BASE_URL}/groups/${id}/members/add`, {
+    method: "POST",
+    headers: REQUEST_HEADERS_WITH_AUTH,
+    cache: "no-cache",
+    body: JSON.stringify(data)
+  }).then((response) => {
+    return response.json();
+  });
+}
