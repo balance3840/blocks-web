@@ -6,6 +6,7 @@ import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import { AuthWrapper } from "./auth-wrapper";
 import GroupsContainer from "./groups";
 import TasksContainer from "./tasks";
+import WorkspaceContainer from "./workspace";
 
 /**
  * Renders the private routes.
@@ -21,6 +22,7 @@ function renderPrivateRoutes() {
           <Route path="/dashboard" component={DashboardContainer} />
           <Route path="/groups" component={GroupsContainer} />
           <Route path="/tasks" component={TasksContainer} />
+          <Route path="/workspace" component={WorkspaceContainer} />
           <Redirect to="/" />
         </Switch>
       </AuthWrapper>
