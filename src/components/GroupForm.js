@@ -4,11 +4,11 @@ import { getStages } from "../api/stage.requests";
 export default function GroupForm({ onSubmit, group }) {
   const [stages, setStages] = useState([]);
   const [form, setForm] = useState({
-    name: group ? group.name : '',
+    name: group ? group.name : "",
     grade: group ? group.grade : 1,
     level: group ? group.level : 1,
     stage: group ? group.stage_id : null,
-    description: group ? group.description : ''
+    description: group ? group.description : "",
   });
 
   useEffect(() => {
@@ -76,7 +76,7 @@ export default function GroupForm({ onSubmit, group }) {
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col-md-6">
+                  {/* <div className="col-md-6">
                     <div className="form-group">
                       <label
                         className="form-control-label"
@@ -93,7 +93,7 @@ export default function GroupForm({ onSubmit, group }) {
                         onChange={(e) => handleChange(e)}
                       />
                     </div>
-                  </div>
+                  </div> */}
                   <div className="col-md-6">
                     <div className="form-group">
                       <label
@@ -138,7 +138,7 @@ export default function GroupForm({ onSubmit, group }) {
                     className="btn btn-primary"
                     onClick={(e) => handleSubmit(e)}
                   >
-                    {group ? 'Editar' : 'Crear'}
+                    {group ? "Editar" : "Crear"}
                   </button>
                 </div>
               </div>
@@ -158,11 +158,11 @@ export default function GroupForm({ onSubmit, group }) {
     e.preventDefault();
     const { name, grade, level, stage, description } = form;
     const group = {
-        name,
-        grade,
-        level,
-        stage_id: stage,
-        description
+      name,
+      grade,
+      level,
+      stage_id: stage,
+      description,
     };
     onSubmit(group);
   }

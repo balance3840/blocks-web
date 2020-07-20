@@ -81,7 +81,7 @@ export default function TaskForm({ group, task, onSubmit }) {
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col-md-6">
+                 {/*  <div className="col-md-6">
                     <div className="form-group">
                       <label
                         className="form-control-label"
@@ -106,10 +106,10 @@ export default function TaskForm({ group, task, onSubmit }) {
                         ))}
                       </select>
                     </div>
-                  </div>
+                  </div> */}
                   <div className="col-md-12">
                     <div className="form-group">
-                      <label className="form-control-label">Descripción</label>
+                      <label className="form-control-label">Enunciado</label>
                       <textarea
                         rows={4}
                         className="form-control"
