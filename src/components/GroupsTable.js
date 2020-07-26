@@ -1,18 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { isAdmin, isTeacher } from "../utils/misc";
 
 export default function GroupsTable({ groups }) {
+  const _isAdmin = isAdmin();
+  const _isTeacher = isTeacher();
+
   return (
     <div className="card">
       <div className="card-header border-0 d-flex justify-content-between align-items-center">
         <div>
           <h3 className="mb-0">Mis grupos</h3>
         </div>
-        <div>
-          <Link to={"/groups/create"} className="btn btn-primary">
-             Crear grupo
-          </Link>
-        </div>
+        {(_isAdmin || _isTeacher) && (
+          <div>
+            <Link to={"/groups/create"} className="btn btn-primary">
+              Crear grupo
+            </Link>
+          </div>
+        )}
       </div>
       <div className="table-responsive">
         <table className="table align-items-center table-flush">
@@ -46,52 +52,54 @@ export default function GroupsTable({ groups }) {
                 <td>{group.description}</td>
                 <td>{group.grade}</td>
                 <td>{group.stage.name}</td>
-                <td className="text-right">
-                  <div className="dropdown">
-                    <a
-                      className="btn btn-sm btn-icon-only text-light"
-                      href="#"
-                      role="button"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                      <i className="fas fa-ellipsis-v" />
-                    </a>
-                    <div className="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                      <Link
-                        to={`/groups/${group.id}/members`}
-                        className="dropdown-item"
+                {(_isTeacher || _isAdmin) && (
+                  <td className="text-right">
+                    <div className="dropdown">
+                      <a
+                        className="btn btn-sm btn-icon-only text-light"
+                        href="#"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
                       >
-                        Ver miembros
-                      </Link>
-                      <Link
-                        to={`/groups/${group.id}/edit`}
-                        className="dropdown-item"
-                      >
-                        Editar
-                      </Link>
-                      <Link
-                        to={`/groups/${group.id}/tasks/add`}
-                        className="dropdown-item"
-                      >
-                        Crear tarea
-                      </Link>
-                      <Link
-                        to={`/groups/${group.id}/tasks`}
-                        className="dropdown-item"
-                      >
-                        Ver tareas
-                      </Link>
-                      <Link
-                        to={`/groups/${group.id}/members/add`}
-                        className="dropdown-item"
-                      >
-                        Añadir usuarios
-                      </Link>
+                        <i className="fas fa-ellipsis-v" />
+                      </a>
+                      <div className="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                        <Link
+                          to={`/groups/${group.id}/members`}
+                          className="dropdown-item"
+                        >
+                          Ver miembros
+                        </Link>
+                        <Link
+                          to={`/groups/${group.id}/edit`}
+                          className="dropdown-item"
+                        >
+                          Editar
+                        </Link>
+                        <Link
+                          to={`/groups/${group.id}/tasks/add`}
+                          className="dropdown-item"
+                        >
+                          Crear tarea
+                        </Link>
+                        <Link
+                          to={`/groups/${group.id}/tasks`}
+                          className="dropdown-item"
+                        >
+                          Ver tareas
+                        </Link>
+                        <Link
+                          to={`/groups/${group.id}/members/add`}
+                          className="dropdown-item"
+                        >
+                          Añadir usuarios
+                        </Link>
+                      </div>
                     </div>
-                  </div>
-                </td>
+                  </td>
+                )}
               </tr>
             ))}
           </tbody>
