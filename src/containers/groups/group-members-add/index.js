@@ -15,6 +15,7 @@ export default function GroupMembersAddContainer({ match: { params } }) {
   useEffect(() => {
       if(suggestions.length === 0) {
         getUsers().then(response => {
+          if (response.status === 403) window.location.replace('/');
             const userSuggestions = response.data.map(user => {
                 return { id: user.id, name: `${user.name} ${user.lastname} (${user.email})` }
             });

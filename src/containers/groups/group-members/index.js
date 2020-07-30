@@ -8,6 +8,7 @@ export default function GroupMembersContainer({ match: { params } }) {
 
   useEffect(() => {
     getGroupMembers(id).then((response) => {
+      if(response.status === 403) window.location.replace('/');
       setMembers(response.data);
     });
   }, [id]);

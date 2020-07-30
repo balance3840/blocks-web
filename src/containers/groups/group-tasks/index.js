@@ -9,6 +9,7 @@ export default function GroupTasksContainer({ match: { params } }) {
 
   useEffect(() => {
     getGroupTasks(id).then((response) => {
+      if (response.status === 403) window.location.replace('/');
       setTasks(response.data);
     });
   }, [id]);

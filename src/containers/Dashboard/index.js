@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment, useState } from "react";
+import React, { useEffect, useState } from "react";
 import connect from "../../provider/connect";
 import {
   getGroups,
@@ -9,6 +9,9 @@ import { getGroupsRequest } from "../../api/group.requests";
 
 import Loader from "react-loader-spinner";
 import GroupsTable from "../../components/GroupsTable";
+import TasksTable from "../../components/TasksTable";
+import { getTasksRequest } from "../../api/task.request";
+import { isAdmin, isTeacher } from "../../utils/misc";
 
 /**
  * a factory function that connects to the provider
@@ -58,15 +61,25 @@ function renderLoading() {
   );
 }
 
-function render(groups) {
+function render(groups, tasks) {
+  const _isAdmin = isAdmin();
+  const _isTeacher = isTeacher();
   return (
-    <React.Fragment>
+    <>
+      {(_isAdmin ||
+        _isTeacher) && (
+          <div className="row mt-5">
+            <div className="col">
+              <GroupsTable groups={groups} />
+            </div>
+          </div>
+        )}
       <div className="row mt-5">
         <div className="col">
-          <GroupsTable groups={groups} />
+          <TasksTable tasks={tasks} />
         </div>
       </div>
-    </React.Fragment>
+    </>
   );
 }
 
@@ -78,10 +91,15 @@ function DashboardContainer({
   dispatchgetGroupsFailure,
 }) {
   const [groupsLength, setGroupsLength] = useState();
+  const [tasks, setTasks] = useState([]);
+  const _isAdmin = isAdmin();
+  const _isTeacher = isTeacher();
+  const onlyMine = _isAdmin ? false : true;
+  const onlyMineGroups = _isTeacher ? true : false;
 
   useEffect(() => {
     dispatchGetGroups();
-    getGroupsRequest().then((response) => {
+    getGroupsRequest(onlyMineGroups).then((response) => {
       if (response && response.data) {
         setGroupsLength(response.data.length);
         dispatchGetGroupsSuccess(response.data);
@@ -89,8 +107,11 @@ function DashboardContainer({
       }
       dispatchgetGroupsFailure(response.message);
     });
+    getTasksRequest(onlyMine).then((response) => {
+      setTasks(response.data);
+    });
     return () => {};
   }, [groupsLength]);
 
-  return loading ? renderLoading() : render(groups);
+  return loading ? renderLoading() : render(groups, tasks);
 }

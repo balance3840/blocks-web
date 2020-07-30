@@ -9,6 +9,7 @@ import { getGroupsRequest } from "../../../api/group.requests";
 
 import Loader from "react-loader-spinner";
 import GroupsTable from "../../../components/GroupsTable";
+import { isTeacher } from "../../../utils/misc";
 
 /**
  * a factory function that connects to the provider
@@ -78,10 +79,13 @@ function GroupListContainer({
   dispatchgetGroupsFailure,
 }) {
   const [groupsLength, setGroupsLength] = useState();
+  const _isTeacher = isTeacher();
+  const onlyMineGroups = _isTeacher ? true : false;
 
   useEffect(() => {
     dispatchGetGroups();
-    getGroupsRequest().then((response) => {
+    getGroupsRequest(onlyMineGroups).then((response) => {
+      if (response.status === 403) window.location.replace('/')
       if (response && response.data) {
         setGroupsLength(response.data.length);
         dispatchGetGroupsSuccess(response.data);

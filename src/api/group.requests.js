@@ -1,7 +1,7 @@
 import { BASE_URL, REQUEST_HEADERS_WITH_AUTH } from "../utils/api";
 
-export function getGroupsRequest() {
-  return fetch(`${BASE_URL}/groups`, {
+export function getGroupsRequest(onlyMine = false) {
+  return fetch(`${BASE_URL}/groups${onlyMine ? '?onlyMine=true' : ''}`, {
     method: "GET",
     headers: REQUEST_HEADERS_WITH_AUTH,
     cache: "no-cache"
@@ -10,8 +10,8 @@ export function getGroupsRequest() {
   });
 }
 
-export function getGroup(id) {
-  return fetch(`${BASE_URL}/groups/${id}`, {
+export function getGroup(id, onlyMine = false) {
+  return fetch(`${BASE_URL}/groups/${id}${onlyMine ? '?onlyMine=true' : ''}`, {
     method: "GET",
     headers: REQUEST_HEADERS_WITH_AUTH,
     cache: "no-cache"
