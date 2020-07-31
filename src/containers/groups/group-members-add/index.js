@@ -4,17 +4,19 @@ import "./tags.scss";
 import { getUsers } from "../../../api/users.requests";
 import { useEffect } from "react";
 import { addMembers } from "../../../api/group.requests";
+import { isTeacher } from "../../../utils/misc";
 
 export default function GroupMembersAddContainer({ match: { params } }) {
   const [tags, setTags] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
   const reactTags = useRef();
+  const onlyMineUsers = isTeacher();
 
   const { id } = params;
 
   useEffect(() => {
       if(suggestions.length === 0) {
-        getUsers().then(response => {
+        getUsers(onlyMineUsers).then(response => {
           if (response.status === 403) window.location.replace('/');
             const userSuggestions = response.data.map(user => {
                 return { id: user.id, name: `${user.name} ${user.lastname} (${user.email})` }
@@ -22,7 +24,7 @@ export default function GroupMembersAddContainer({ match: { params } }) {
             setSuggestions(userSuggestions);
         });
       }
-  })
+  }, [])
 
   function handleAddition(tag) {
       const duplicated = tags.findIndex(x => x.id === tag.id) > -1;

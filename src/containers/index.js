@@ -7,6 +7,7 @@ import { AuthWrapper } from "./auth-wrapper";
 import GroupsContainer from "./groups";
 import TasksContainer from "./tasks";
 import WorkspaceContainer from "./workspace";
+import UsersContainer from "./users";
 
 /**
  * Renders the private routes.
@@ -22,6 +23,7 @@ function renderPrivateRoutes() {
           <Route path="/dashboard" component={DashboardContainer} />
           <Route path="/groups" component={GroupsContainer} />
           <Route path="/tasks" component={TasksContainer} />
+          <Route path="/users" component={UsersContainer} />
           <Route path="/workspace" component={WorkspaceContainer} />
           <Redirect to="/" />
         </Switch>
