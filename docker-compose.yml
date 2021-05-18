@@ -1,0 +1,19 @@
+version: '3'
+
+services: 
+    
+    web:
+        image: node:12
+        container_name: blocks-web
+        tty: true
+        volumes: 
+            - ./:/apps/blocks-web
+        working_dir: /apps/blocks-web
+        ports: 
+            - 3000:3000
+        command: "yarn --cwd /apps/blocks-web start"
+        networks: 
+            - blocks-network
+
+networks: 
+    blocks-network:
