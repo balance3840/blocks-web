@@ -70,13 +70,13 @@ function render(groups, tasks) {
         _isTeacher) && (
           <div className="row mt-5">
             <div className="col">
-              <GroupsTable groups={groups} />
+              { groups && <GroupsTable groups={groups} /> }
             </div>
           </div>
         )}
       <div className="row mt-5">
         <div className="col">
-          <TasksTable tasks={tasks} />
+          { tasks && <TasksTable tasks={tasks} /> }
         </div>
       </div>
     </>

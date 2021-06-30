@@ -1,9 +1,11 @@
 import React, { Fragment } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { getAuthUser, getUserDisplayName } from "../utils/misc";
 
 export function AuthWrapper({ children }) {
   const location = useLocation();
   const path = location.pathname;
+  const userDisplayName = getUserDisplayName();
   return (
     <Fragment>
       <nav
@@ -27,7 +29,7 @@ export function AuthWrapper({ children }) {
             <div className="sidenav-header  align-items-center">
               <a className="navbar-brand" href="javascript:void(0)">
                 <img
-                  src="/assets/img/brand/blue.png"
+                  src="/assets/img/brand/brand-logo.png"
                   className="navbar-brand-img"
                   alt="..."
                 />
@@ -78,81 +80,8 @@ export function AuthWrapper({ children }) {
                   </li>
                   <li className="nav-item">
                     <a className="nav-link" href="profile.html">
-                      <i className="ni ni-single-02 text-yellow" />
-                      <span className="nav-link-text">Profile</span>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="tables.html">
-                      <i className="ni ni-bullet-list-67 text-default" />
-                      <span className="nav-link-text">Tables</span>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="login.html">
-                      <i className="ni ni-key-25 text-info" />
-                      <span className="nav-link-text">Login</span>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="register.html">
-                      <i className="ni ni-circle-08 text-pink" />
-                      <span className="nav-link-text">Register</span>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="upgrade.html">
-                      <i className="ni ni-send text-dark" />
-                      <span className="nav-link-text">Upgrade</span>
-                    </a>
-                  </li>
-                </ul>
-                {/* Divider */}
-                <hr className="my-3" />
-                {/* Heading */}
-                <h6 className="navbar-heading p-0 text-muted">
-                  <span className="docs-normal">Documentation</span>
-                </h6>
-                {/* Navigation */}
-                <ul className="navbar-nav mb-md-3">
-                  <li className="nav-item">
-                    <a
-                      className="nav-link"
-                      href="../docs/getting-started/overview.html"
-                      target="_blank"
-                    >
-                      <i className="ni ni-spaceship" />
-                      <span className="nav-link-text">Getting started</span>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a
-                      className="nav-link"
-                      href="../docs/foundation/colors.html"
-                      target="_blank"
-                    >
-                      <i className="ni ni-palette" />
-                      <span className="nav-link-text">Foundation</span>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a
-                      className="nav-link"
-                      href="../docs/components/alerts.html"
-                      target="_blank"
-                    >
-                      <i className="ni ni-ui-04" />
-                      <span className="nav-link-text">Components</span>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a
-                      className="nav-link"
-                      href="../docs/plugins/charts.html"
-                      target="_blank"
-                    >
-                      <i className="ni ni-chart-pie-35" />
-                      <span className="nav-link-text">Plugins</span>
+                      <i className="ni ni-single-02 text-primary" />
+                      <span className="nav-link-text">Perfil</span>
                     </a>
                   </li>
                 </ul>
@@ -480,12 +409,12 @@ export function AuthWrapper({ children }) {
                       <span className="avatar avatar-sm rounded-circle">
                         <img
                           alt="Image placeholder"
-                          src="/assets/img/theme/team-4.jpg"
+                          src={`https://ui-avatars.com/api/?background=F89985&color=fff&name=${userDisplayName}&size=256`}
                         />
                       </span>
                       <div className="media-body  ml-2  d-none d-lg-block">
                         <span className="mb-0 text-sm  font-weight-bold">
-                          John Snow
+                          {userDisplayName}
                         </span>
                       </div>
                     </div>

@@ -14,3 +14,8 @@ export function isTeacher() {
     const isTeacher = user.role.name === "Profesor";
     return isTeacher;
 }
+
+export function getUserDisplayName(user = null) {
+    user = user || getAuthUser();
+    return `${user.name} ${user.lastname}`
+}
