@@ -34,3 +34,19 @@ Blockly.JavaScript['test_react_field'] = function (block) {
 Blockly.JavaScript['test_react_date_field'] = function (block) {
     return 'console.log(' + block.getField('DATE').getText() + ');\n';
 };
+
+Blockly.JavaScript['test_move_forward'] = function (block) {
+    return 'console.log(' + block.getField('STEPS').getText() + ');\n';
+};
+
+Blockly.JavaScript['test_move_backwards'] = function (block) {
+    return 'console.log(' + block.getField('STEPS').getText() + ');\n';
+};
+
+Blockly.JavaScript['test_move_left'] = function (block) {
+    return 'console.log(' + block.getField('STEPS').getText() + ');\n';
+};
+
+Blockly.JavaScript['test_move_right'] = function (block) {
+    return 'console.log(' + block.getField('STEPS').getText() + ');\n';
+};

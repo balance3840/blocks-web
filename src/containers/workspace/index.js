@@ -40,6 +40,10 @@ export default function WorkspaceContainer() {
 </xml>
       `}
     >
+      <Block type="test_move_forward" />
+      <Block type="test_move_backwards" />
+      <Block type="test_move_left" />
+      <Block type="test_move_right" />
       <Block type="test_react_field" />
       <Block type="test_react_date_field" />
       <Block type="controls_ifelse" />

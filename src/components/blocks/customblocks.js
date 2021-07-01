@@ -72,3 +72,87 @@ Blockly.Blocks['test_react_date_field'] = {
     this.setStyle('loop_blocks');
   }
 };
+
+var reactMoveForwardField = {
+  "type": "test_move_forward",
+  "message0": "Mover hacia adelante ↑ %1 pasos",
+  "args0": [
+    {
+      "type": "field_input",
+      "name": "STEPS",
+      "text": "20",
+    },
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+};
+
+Blockly.Blocks['test_move_forward'] = {
+  init: function() {
+    this.jsonInit(reactMoveForwardField);
+    this.setStyle('loop_blocks');
+  }
+};
+
+var reactMoveBackwardsField = {
+  "type": "test_move_backwards",
+  "message0": "Mover hacia detrás ↓ %1 pasos",
+  "args0": [
+    {
+      "type": "field_input",
+      "name": "STEPS",
+      "text": "20",
+    },
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+};
+
+Blockly.Blocks['test_move_backwards'] = {
+  init: function() {
+    this.jsonInit(reactMoveBackwardsField);
+    this.setStyle('loop_blocks');
+  }
+};
+
+var reactMoveLeftField = {
+  "type": "test_move_left",
+  "message0": "Mover hacia la izquierda ← %1 pasos",
+  "args0": [
+    {
+      "type": "field_input",
+      "name": "STEPS",
+      "text": "20",
+    },
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+};
+
+Blockly.Blocks['test_move_left'] = {
+  init: function() {
+    this.jsonInit(reactMoveLeftField);
+    this.setStyle('loop_blocks');
+  }
+};
+
+var reactMoveRightField = {
+  "type": "test_move_right",
+  "message0": "Mover hacia la derecha → %1 pasos",
+  "args0": [
+    {
+      "type": "field_input",
+      "name": "STEPS",
+      "text": "20",
+    },
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+};
+
+Blockly.Blocks['test_move_right'] = {
+  init: function() {
+    this.jsonInit(reactMoveRightField);
+    this.setStyle('loop_blocks');
+  }
+};
