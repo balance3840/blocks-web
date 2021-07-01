@@ -59,6 +59,7 @@ export default function GroupMembersAddContainer({ match: { params } }) {
         suggestions={suggestions}
         onDelete={tag => handleDelete(tag)}
         onAddition={tag => handleAddition(tag)}
+        placeholderText="Añadir usuario"
       />
       <div className="d-flex mt-3">
         <button className="btn btn-primary" onClick={handleSubmit}>Guardar</button>
