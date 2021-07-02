@@ -4,16 +4,24 @@ services:
     
     web:
         image: node:12
-        container_name: blocks-web
+        container_name: blocks-node
         tty: true
         volumes: 
             - ./:/apps/blocks-web
         working_dir: /apps/blocks-web
-        ports: 
-            - 3000:3000
-        command: "yarn --cwd /apps/blocks-web start"
         networks: 
-            - blocks-network
+            - blocks-react-network
+
+    webserver:
+        image: nginx:1.20
+        container_name: blocks-react-webserver
+        tty: true
+        volumes:
+            - ./build:/usr/share/nginx/html
+        ports:
+            - "80:80"
+        networks:
+            - blocks-react-network
 
 networks: 
-    blocks-network:
+    blocks-react-network:
