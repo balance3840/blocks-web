@@ -18,6 +18,7 @@ services:
         tty: true
         volumes:
             - ./build:/usr/share/nginx/html
+            - ./.docker/nginx/conf.d/:/etc/nginx/conf.d/
         ports:
             - "80:80"
         networks:
