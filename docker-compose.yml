@@ -9,6 +9,8 @@ services:
         volumes: 
             - ./:/apps/blocks-web
         working_dir: /apps/blocks-web
+        ports:
+            - "3000:3000"
         networks: 
             - blocks-react-network
 
