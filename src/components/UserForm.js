@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { getStatuses } from "../api/status.requests";
+import { getRoles } from "../api/role.requests";
 
 export default function UserForm({ user, onSubmit }) {
   const authUser = JSON.parse(localStorage.getItem("user"));
+  const [roles, setRoles] = useState([]);
   const [form, setForm] = useState({
     name: user ? user.name : "",
     lastname: user ? user.lastname : "",
     email: user ? user.email : "",
-    role_id: 3,
-    institute_id: authUser.institute_id,
-    password: '123456'
+    role_id: user? user.role_id : 3,
+    institute_id: authUser.institute_id
   });
+
+  useEffect(() => {
+    getRoles().then((response) => {
+      setRoles(response.data);
+    });
+  }, []);
 
   return (
     <div className="row mt-3">
@@ -85,6 +91,31 @@ export default function UserForm({ user, onSubmit }) {
                       />
                     </div>
                   </div>
+                  <div className="col-md-6">
+                    <div className="form-group">
+                      <label
+                        className="form-control-label"
+                        htmlFor="input-stage"
+                      >
+                        Rol
+                      </label>
+                      <select
+                        className="form-control"
+                        name="role_id"
+                        onChange={(e) => handleChange(e)}
+                        value={form.role_id}
+                      >
+                        {roles.map((role) => (
+                          <option
+                            key={role.id}
+                            value={role.id}
+                          >
+                            {role.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
                 </div>
                 <div className="d-flex justify-content-end">
                   <button
@@ -109,14 +140,14 @@ export default function UserForm({ user, onSubmit }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const { name, lastname, email, role_id, institute_id, password } = form;
+    const { name, lastname, email, role_id, institute_id } = form;
     let userForm = {
       name,
       lastname,
       role_id,
       institute_id
     }
-    if(!user) userForm = {...userForm, password, email};
+    if (!user) userForm = { ...userForm, email };
     onSubmit(userForm);
   }
 }

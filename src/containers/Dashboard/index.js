@@ -10,7 +10,8 @@ import { getGroupsRequest } from "../../api/group.requests";
 import Loader from "react-loader-spinner";
 import GroupsTable from "../../components/GroupsTable";
 import TasksTable from "../../components/TasksTable";
-import { getTasksRequest } from "../../api/task.request";
+import TasksResultTable from "../../components/TasksResultTable";
+import { getMyStudentsTasks, getTasksRequest } from "../../api/task.request";
 import { isAdmin, isTeacher } from "../../utils/misc";
 
 /**
@@ -61,7 +62,7 @@ function renderLoading() {
   );
 }
 
-function render(groups, tasks) {
+function render(groups, tasks, myStudentTasks) {
   const _isAdmin = isAdmin();
   const _isTeacher = isTeacher();
   return (
@@ -79,6 +80,12 @@ function render(groups, tasks) {
           { tasks && <TasksTable tasks={tasks} /> }
         </div>
       </div>
+
+      <div className="row mt-5">
+        <div className="col">
+          { tasks && <TasksResultTable tasksResult={myStudentTasks} /> }
+        </div>
+      </div>
     </>
   );
 }
@@ -92,6 +99,7 @@ function DashboardContainer({
 }) {
   const [groupsLength, setGroupsLength] = useState();
   const [tasks, setTasks] = useState([]);
+  const [myStudentTasks, setMyStudentsTasks] = useState([]);
   const _isAdmin = isAdmin();
   const _isTeacher = isTeacher();
   const onlyMine = _isAdmin ? false : true;
@@ -110,8 +118,11 @@ function DashboardContainer({
     getTasksRequest(onlyMine).then((response) => {
       setTasks(response.data);
     });
+    getMyStudentsTasks().then(response => {
+      setMyStudentsTasks(response.data);
+    });
     return () => {};
   }, [groupsLength]);
 
-  return loading ? renderLoading() : render(groups, tasks);
+  return loading ? renderLoading() : render(groups, tasks, myStudentTasks);
 }

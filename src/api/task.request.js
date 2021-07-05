@@ -41,3 +41,13 @@ export function getTask(id) {
     return response.json();
   });
 }
+
+export function getMyStudentsTasks() {
+  return fetch(`${BASE_URL}/tasks/my-students`, {
+    method: "GET",
+    headers: REQUEST_HEADERS_WITH_AUTH,
+    cache: "no-cache"
+  }).then((response) => {
+    return response.json();
+  });
+}
