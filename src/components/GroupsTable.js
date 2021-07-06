@@ -31,10 +31,10 @@ export default function GroupsTable({ groups }) {
                 descripcion
               </th>
               <th scope="col" className="sort" data-sort="grado">
-                grado
+                curso
               </th>
               <th scope="col" data-sort="nivel">
-                nivel
+                nivel académico
               </th>
               <th scope="col" />
             </tr>

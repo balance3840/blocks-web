@@ -62,7 +62,7 @@ export default function GroupForm({ onSubmit, group }) {
                         className="form-control-label"
                         htmlFor="input-grade"
                       >
-                        Grado
+                        Curso
                       </label>
                       <input
                         type="number"
@@ -100,7 +100,7 @@ export default function GroupForm({ onSubmit, group }) {
                         className="form-control-label"
                         htmlFor="input-stage"
                       >
-                        Fase
+                        Nivel académico
                       </label>
                       <select
                         className="form-control"

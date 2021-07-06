@@ -75,7 +75,7 @@ Blockly.Blocks['test_react_date_field'] = {
 
 var reactMoveForwardField = {
   "type": "test_move_forward",
-  "message0": "Mover hacia adelante ↑ %1 pasos",
+  "message0": "Mover hacia adelante ↑ por %1 segundos",
   "args0": [
     {
       "type": "field_input",
@@ -96,7 +96,7 @@ Blockly.Blocks['test_move_forward'] = {
 
 var reactMoveBackwardsField = {
   "type": "test_move_backwards",
-  "message0": "Mover hacia detrás ↓ %1 pasos",
+  "message0": "Mover hacia detrás ↓ por %1 segundos",
   "args0": [
     {
       "type": "field_input",
@@ -117,7 +117,7 @@ Blockly.Blocks['test_move_backwards'] = {
 
 var reactMoveLeftField = {
   "type": "test_move_left",
-  "message0": "Mover hacia la izquierda ← %1 pasos",
+  "message0": "Mover hacia la izquierda ← por %1 segundos",
   "args0": [
     {
       "type": "field_input",
@@ -138,7 +138,7 @@ Blockly.Blocks['test_move_left'] = {
 
 var reactMoveRightField = {
   "type": "test_move_right",
-  "message0": "Mover hacia la derecha → %1 pasos",
+  "message0": "Mover hacia la derecha → por %1 segundos",
   "args0": [
     {
       "type": "field_input",
