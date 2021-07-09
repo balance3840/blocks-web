@@ -42,6 +42,16 @@ export function getTask(id) {
   });
 }
 
+export function getTaskComments(taskId) {
+  return fetch(`${BASE_URL}/tasks/${taskId}/comments`, {
+    method: "GET",
+    headers: REQUEST_HEADERS_WITH_AUTH,
+    cache: "no-cache"
+  }).then((response) => {
+    return response.json();
+  });
+}
+
 export function getMyStudentsTasks() {
   return fetch(`${BASE_URL}/tasks/my-students`, {
     method: "GET",

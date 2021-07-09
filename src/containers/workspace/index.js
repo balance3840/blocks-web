@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 import BlocklyComponent, {
   Block,
@@ -11,8 +11,12 @@ import BlocklyJS from "blockly/javascript";
 
 import "../../components/blocks/customblocks";
 import "../../components/generator/generator";
+import { getTaskComments } from "../../api/task.request";
 
-export default function WorkspaceContainer() {
+export default function WorkspaceContainer({ match: { params } }) {
+
+  const { id } = params;
+  const [comments, setComments] = useState([]);
 
   const simpleWorkspace = useRef();
 
@@ -23,12 +27,19 @@ export default function WorkspaceContainer() {
     console.log(code);
   };
 
+  useEffect(() => {
+    getTaskComments(id).then(response => {
+      setComments(response.data);
+    });
+  }, [])
+
   return (
-    <BlocklyComponent
+    <>
+      <BlocklyComponent
       ref={simpleWorkspace}
       readOnly={false}
       trashcan={true}
-      media={"media/"}
+      media={"/media/"}
       move={{
         scrollbars: true,
         drag: true,
@@ -77,6 +88,15 @@ export default function WorkspaceContainer() {
         </Value>
       </Block>
     </BlocklyComponent>
+    <div>
+      <h2>Comentarios</h2>
+      <div>
+        { comments.map(comment => (
+          <p>{comment.comment}</p>
+        )) }
+      </div>
+    </div>
+    </>
   );
 
 }
