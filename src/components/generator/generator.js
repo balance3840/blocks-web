@@ -50,3 +50,7 @@ Blockly.JavaScript['test_move_left'] = function (block) {
 Blockly.JavaScript['test_move_right'] = function (block) {
     return 'console.log(' + block.getField('STEPS').getText() + ');\n';
 };
+
+Blockly.JavaScript['test_wait'] = function (block) {
+    return 'console.log(' + block.getField('SECONDS').getText() + ');\n';
+};

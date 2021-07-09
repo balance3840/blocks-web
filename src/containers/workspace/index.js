@@ -36,7 +36,9 @@ export default function WorkspaceContainer() {
       }}
       initialXml={`
 <xml xmlns="http://www.w3.org/1999/xhtml">
-<block type="controls_ifelse" x="0" y="0"></block>
+<block type="test_move_forward" x="20" y="20"></block>
+<block type="test_wait" x="20" y="47"></block>
+<block type="test_move_left" x="20" y="74"></block>
 </xml>
       `}
     >
@@ -44,6 +46,7 @@ export default function WorkspaceContainer() {
       <Block type="test_move_backwards" />
       <Block type="test_move_left" />
       <Block type="test_move_right" />
+      <Block type="test_wait" />
       <Block type="test_react_field" />
       <Block type="test_react_date_field" />
       <Block type="controls_ifelse" />

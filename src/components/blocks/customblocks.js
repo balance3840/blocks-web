@@ -156,3 +156,24 @@ Blockly.Blocks['test_move_right'] = {
     this.setStyle('loop_blocks');
   }
 };
+
+var reactWaitField = {
+  "type": "test_wait",
+  "message0": "Esperar %1 segundo(s)",
+  "args0": [
+    {
+      "type": "field_input",
+      "name": "SECONDS",
+      "text": "5",
+    },
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+};
+
+Blockly.Blocks['test_wait'] = {
+  init: function() {
+    this.jsonInit(reactWaitField);
+    this.setStyle('loop_blocks');
+  }
+};
