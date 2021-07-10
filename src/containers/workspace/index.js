@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useLayoutEffect } from "react";
 
 import BlocklyComponent, {
   Block,
@@ -8,6 +8,7 @@ import BlocklyComponent, {
 } from "../../components/Blockly";
 
 import BlocklyJS from "blockly/javascript";
+import BlocklyCore from "blockly/core";
 
 import "../../components/blocks/customblocks";
 import "../../components/generator/generator";
@@ -20,8 +21,20 @@ export default function WorkspaceContainer({ match: { params } }) {
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
   const [editingComment, setEditingComment] = useState(null);
+  const [initialXml, setInitialXml] = useState('');
 
   const simpleWorkspace = useRef();
+
+  function generateXml() {
+    var xml = BlocklyCore.Xml.workspaceToDom(
+      simpleWorkspace.current.workspace
+    );
+    const xmlString = new XMLSerializer().serializeToString(xml);
+    if (initialXml !== xmlString) {
+      setInitialXml(xmlString);
+      localStorage.setItem(`task-${id}-xml`, xmlString);
+    }
+  };
 
   function generateCode() {
     var code = BlocklyJS.workspaceToCode(
@@ -75,6 +88,10 @@ export default function WorkspaceContainer({ match: { params } }) {
     });
   }, [])
 
+  useLayoutEffect(() => {
+    simpleWorkspace.current.workspace.addChangeListener(generateXml);
+  }, [])
+
   return (
     <>
       <BlocklyComponent
@@ -87,13 +104,7 @@ export default function WorkspaceContainer({ match: { params } }) {
           drag: true,
           wheel: true,
         }}
-        initialXml={`
-<xml xmlns="http://www.w3.org/1999/xhtml">
-<block type="test_move_forward" x="20" y="20"></block>
-<block type="test_wait" x="20" y="47"></block>
-<block type="test_move_left" x="20" y="74"></block>
-</xml>
-      `}
+        initialXml={initialXml}
       >
         <Block type="test_move_forward" />
         <Block type="test_move_backwards" />
@@ -130,6 +141,11 @@ export default function WorkspaceContainer({ match: { params } }) {
           </Value>
         </Block>
       </BlocklyComponent>
+
+      <div className="mt-5 mb-5">
+        <button className="btn btn-info" onClick={() => generateXml()}>Generar codigo</button>
+      </div>
+
       <div style={{ background: 'white', borderRadius: '10px' }}>
         <h2 style={{ background: 'rgba(17, 205, 239, 0.08)', padding: '10px', border: '0.5px solid rgba(0, 0, 0, 0.05)', borderTopLeftRadius: '10px', borderTopRightRadius: '10px' }}>Comentarios</h2>
         <div className="comments" style={{ padding: '10px' }}>
