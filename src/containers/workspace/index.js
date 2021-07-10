@@ -11,7 +11,7 @@ import BlocklyJS from "blockly/javascript";
 
 import "../../components/blocks/customblocks";
 import "../../components/generator/generator";
-import { createTaskComment, deleteTaskComment, getTaskComments } from "../../api/task.request";
+import { createTaskComment, deleteTaskComment, editTaskComment, getTaskComments } from "../../api/task.request";
 import { getUserDisplayName } from "../../utils/misc";
 import { Link } from "react-router-dom";
 
@@ -19,6 +19,7 @@ export default function WorkspaceContainer({ match: { params } }) {
   const { id } = params;
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
+  const [editingComment, setEditingComment] = useState(null);
 
   const simpleWorkspace = useRef();
 
@@ -29,8 +30,7 @@ export default function WorkspaceContainer({ match: { params } }) {
     console.log(code);
   };
 
-  function saveComment(e) {
-    e.preventDefault();
+  function saveComment() {
     const data = { comment }
     createTaskComment(id, data).then(response => {
       setComment("");
@@ -38,10 +38,34 @@ export default function WorkspaceContainer({ match: { params } }) {
     });
   }
 
+  function onCommentSubmit(e) {
+    e.preventDefault();
+    if(editingComment) {
+      editComment(editingComment.task_id, editingComment.id);
+      return;
+    }
+    saveComment();
+  }
+
   function deleteComment(e, taskId, commentId) {
     e.preventDefault();
     deleteTaskComment(taskId, commentId).then(response => {
       setComments(comments.filter(comment => comment.id !== commentId));
+    });
+  }
+
+  function editComment(taskId, commentId) {
+    const data = { comment };
+    editTaskComment(taskId, commentId, data).then(response => {
+      setComment("");
+      const newComments = comments.map(comment => {
+        if(comment.id === commentId) {
+          comment.comment = response.data.comment
+        }
+        return comment;
+      });
+      setComments(newComments);
+      setEditingComment(null);
     });
   }
 
@@ -130,7 +154,11 @@ export default function WorkspaceContainer({ match: { params } }) {
                       <i className="fas fa-ellipsis-v" />
                     </a>
                     <div className="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                      <Link to={'#'} className="dropdown-item">
+                      <Link to={'#'} onClick={() => {
+                        setComment(comment.comment);
+                        setEditingComment(comment);
+                      }
+                      } className="dropdown-item">
                         Editar comentario
                       </Link>
                       <Link to={'#'} onClick={(e) => deleteComment(e, comment.task_id, comment.id)} className="dropdown-item">
@@ -149,13 +177,13 @@ export default function WorkspaceContainer({ match: { params } }) {
       </div>
 
       <div className="new-comment" style={{ marginTop: '20px', marginBottom: '100px' }}>
-        <form method="get" onSubmit={(e) => saveComment(e)}>
+        <form method="get" onSubmit={(e) => onCommentSubmit(e)}>
           <div className="form-group">
-            <label className="form-control-label">Nuevo comentario</label>
+            <label className="form-control-label">{ editingComment ? 'Editar comentario' : 'Nuevo comentario' }</label>
             <textarea rows={4} onChange={(e) => { setComment(e.target.value) }} placeholder="Escribe tu comentario aqui..." className="form-control" name="description" spellCheck="false" value={comment} required={true} />
           </div>
           <div className="d-flex justify-content-end">
-            <button className="btn btn-primary">Insertar</button>
+            <button className="btn btn-primary">{ editingComment ? 'Editar' : 'Insertar' }</button>
           </div>
         </form>
       </div>

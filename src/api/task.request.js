@@ -73,6 +73,17 @@ export function deleteTaskComment(taskId, commentId) {
   });
 }
 
+export function editTaskComment(taskId, commentId, data) {
+  return fetch(`${BASE_URL}/tasks/${taskId}/comments/${commentId}`, {
+    method: "PUT",
+    headers: REQUEST_HEADERS_WITH_AUTH,
+    cache: "no-cache",
+    body: JSON.stringify(data)
+  }).then((response) => {
+    return response.json();
+  });
+}
+
 export function getMyStudentsTasks() {
   return fetch(`${BASE_URL}/tasks/my-students`, {
     method: "GET",
