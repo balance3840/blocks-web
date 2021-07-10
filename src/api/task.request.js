@@ -52,6 +52,27 @@ export function getTaskComments(taskId) {
   });
 }
 
+export function createTaskComment(taskId, data) {
+  return fetch(`${BASE_URL}/tasks/${taskId}/comments`, {
+    method: "POST",
+    headers: REQUEST_HEADERS_WITH_AUTH,
+    cache: "no-cache",
+    body: JSON.stringify(data)
+  }).then((response) => {
+    return response.json();
+  });
+}
+
+export function deleteTaskComment(taskId, commentId) {
+  return fetch(`${BASE_URL}/tasks/${taskId}/comments/${commentId}`, {
+    method: "DELETE",
+    headers: REQUEST_HEADERS_WITH_AUTH,
+    cache: "no-cache"
+  }).then((response) => {
+    return response.json();
+  });
+}
+
 export function getMyStudentsTasks() {
   return fetch(`${BASE_URL}/tasks/my-students`, {
     method: "GET",

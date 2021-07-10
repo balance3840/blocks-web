@@ -11,13 +11,14 @@ import BlocklyJS from "blockly/javascript";
 
 import "../../components/blocks/customblocks";
 import "../../components/generator/generator";
-import { getTaskComments } from "../../api/task.request";
+import { createTaskComment, deleteTaskComment, getTaskComments } from "../../api/task.request";
 import { getUserDisplayName } from "../../utils/misc";
+import { Link } from "react-router-dom";
 
 export default function WorkspaceContainer({ match: { params } }) {
-
   const { id } = params;
   const [comments, setComments] = useState([]);
+  const [comment, setComment] = useState("");
 
   const simpleWorkspace = useRef();
 
@@ -30,7 +31,18 @@ export default function WorkspaceContainer({ match: { params } }) {
 
   function saveComment(e) {
     e.preventDefault();
-    console.log("SAVING COMMENT");
+    const data = { comment }
+    createTaskComment(id, data).then(response => {
+      setComment("");
+      setComments([...comments, response.data]);
+    });
+  }
+
+  function deleteComment(e, taskId, commentId) {
+    e.preventDefault();
+    deleteTaskComment(taskId, commentId).then(response => {
+      setComments(comments.filter(comment => comment.id !== commentId));
+    });
   }
 
   useEffect(() => {
@@ -98,12 +110,34 @@ export default function WorkspaceContainer({ match: { params } }) {
         <h2 style={{ background: 'rgba(17, 205, 239, 0.08)', padding: '10px', border: '0.5px solid rgba(0, 0, 0, 0.05)', borderTopLeftRadius: '10px', borderTopRightRadius: '10px' }}>Comentarios</h2>
         <div className="comments" style={{ padding: '10px' }}>
           {comments.map(comment => (
-            <div className="comment" style={{ border: '0.5px solid #00000036', padding: '10px' }}>
+            <div key={comment.id} className="comment" style={{ border: '0.5px solid #00000036', padding: '10px' }}>
               <div className="comment-header" style={{ display: 'flex', alignItems: 'center' }}>
                 <div className="author-picture"><img alt="Image placeholder" src={`https://ui-avatars.com/api/?background=F89985&color=fff&name=${getUserDisplayName(comment.user)}&size=40`} style={{ borderRadius: '10px' }} /> &nbsp;</div>
                 <div className="author-name">{getUserDisplayName(comment.user)}&nbsp;</div>
                 <div className="comment-date">
                   {new Date(comment.created_at).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' })}
+                </div>
+                <div className="comment-options">
+                  <div className="dropdown">
+                    <a
+                      className="btn btn-sm btn-icon-only text-light"
+                      href="#"
+                      role="button"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      <i className="fas fa-ellipsis-v" />
+                    </a>
+                    <div className="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                      <Link to={'#'} className="dropdown-item">
+                        Editar comentario
+                      </Link>
+                      <Link to={'#'} onClick={(e) => deleteComment(e, comment.task_id, comment.id)} className="dropdown-item">
+                        Eliminar comentario
+                      </Link>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="comment-content">
@@ -116,13 +150,13 @@ export default function WorkspaceContainer({ match: { params } }) {
 
       <div className="new-comment" style={{ marginTop: '20px', marginBottom: '100px' }}>
         <form method="get" onSubmit={(e) => saveComment(e)}>
-        <div className="form-group">
-          <label className="form-control-label">Nuevo comentario</label>
-          <textarea rows={4} placeholder="Escribe tu comentario aqui..." className="form-control" name="description" spellCheck="false" defaultValue={""} required={true} />
-        </div>
-        <div className="d-flex justify-content-end">
-          <button className="btn btn-primary">Insertar</button>
-        </div>
+          <div className="form-group">
+            <label className="form-control-label">Nuevo comentario</label>
+            <textarea rows={4} onChange={(e) => { setComment(e.target.value) }} placeholder="Escribe tu comentario aqui..." className="form-control" name="description" spellCheck="false" value={comment} required={true} />
+          </div>
+          <div className="d-flex justify-content-end">
+            <button className="btn btn-primary">Insertar</button>
+          </div>
         </form>
       </div>
     </>
