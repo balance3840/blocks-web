@@ -22,6 +22,7 @@ export default function WorkspaceContainer({ match: { params } }) {
   const [comment, setComment] = useState("");
   const [editingComment, setEditingComment] = useState(null);
   const [initialXml, setInitialXml] = useState('');
+  const taskXmlName = `task-${id}-xml`;
 
   const simpleWorkspace = useRef();
 
@@ -32,7 +33,7 @@ export default function WorkspaceContainer({ match: { params } }) {
     const xmlString = new XMLSerializer().serializeToString(xml);
     if (initialXml !== xmlString) {
       setInitialXml(xmlString);
-      localStorage.setItem(`task-${id}-xml`, xmlString);
+      localStorage.setItem(taskXmlName, xmlString);
     }
   };
 
@@ -86,6 +87,17 @@ export default function WorkspaceContainer({ match: { params } }) {
     getTaskComments(id).then(response => {
       setComments(response.data);
     });
+    const localXml = new Promise((resolve, reject) => {
+      const data = localStorage.getItem(taskXmlName);
+      data ? resolve(data) : reject();
+    })
+    localXml.then(data => {
+      const xmlElement = BlocklyCore.Xml.textToDom(data);
+      BlocklyCore.Xml.clearWorkspaceAndLoadFromXml(
+        xmlElement,
+        simpleWorkspace.current.workspace
+      );
+    });
   }, [])
 
   useLayoutEffect(() => {
@@ -104,7 +116,6 @@ export default function WorkspaceContainer({ match: { params } }) {
           drag: true,
           wheel: true,
         }}
-        initialXml={initialXml}
       >
         <Block type="test_move_forward" />
         <Block type="test_move_backwards" />
