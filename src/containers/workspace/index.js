@@ -9,6 +9,7 @@ import BlocklyComponent, {
 
 import BlocklyJS from "blockly/javascript";
 import BlocklyCore from "blockly/core";
+import ReactHlsPlayer from 'react-hls-player';
 
 import "../../components/blocks/customblocks";
 import "../../components/generator/generator";
@@ -54,7 +55,7 @@ export default function WorkspaceContainer({ match: { params } }) {
 
   function onCommentSubmit(e) {
     e.preventDefault();
-    if(editingComment) {
+    if (editingComment) {
       editComment(editingComment.task_id, editingComment.id);
       return;
     }
@@ -73,7 +74,7 @@ export default function WorkspaceContainer({ match: { params } }) {
     editTaskComment(taskId, commentId, data).then(response => {
       setComment("");
       const newComments = comments.map(comment => {
-        if(comment.id === commentId) {
+        if (comment.id === commentId) {
           comment.comment = response.data.comment
         }
         return comment;
@@ -206,13 +207,23 @@ export default function WorkspaceContainer({ match: { params } }) {
       <div className="new-comment" style={{ marginTop: '20px', marginBottom: '100px' }}>
         <form method="get" onSubmit={(e) => onCommentSubmit(e)}>
           <div className="form-group">
-            <label className="form-control-label">{ editingComment ? 'Editar comentario' : 'Nuevo comentario' }</label>
+            <label className="form-control-label">{editingComment ? 'Editar comentario' : 'Nuevo comentario'}</label>
             <textarea rows={4} onChange={(e) => { setComment(e.target.value) }} placeholder="Escribe tu comentario aqui..." className="form-control" name="description" spellCheck="false" value={comment} required={true} />
           </div>
           <div className="d-flex justify-content-end">
-            <button className="btn btn-primary">{ editingComment ? 'Editar' : 'Insertar' }</button>
+            <button className="btn btn-primary">{editingComment ? 'Editar' : 'Insertar'}</button>
           </div>
         </form>
+      </div>
+
+      <div className="media-player">
+        <ReactHlsPlayer
+          src="http://localhost:8085/hls/test.m3u8"
+          autoPlay={false}
+          controls={true}
+          width="100%"
+          height="auto"
+        />,
       </div>
     </>
   );
