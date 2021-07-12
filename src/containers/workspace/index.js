@@ -26,6 +26,7 @@ export default function WorkspaceContainer({ match: { params } }) {
   const taskXmlName = `task-${id}-xml`;
 
   const simpleWorkspace = useRef();
+  const playerRef = useRef();
 
   function generateXml() {
     var xml = BlocklyCore.Xml.workspaceToDom(
@@ -104,6 +105,10 @@ export default function WorkspaceContainer({ match: { params } }) {
   useLayoutEffect(() => {
     simpleWorkspace.current.workspace.addChangeListener(generateXml);
   }, [])
+
+  function playVideo() {
+    playerRef.current.play();
+  }
 
   return (
     <>
@@ -218,13 +223,17 @@ export default function WorkspaceContainer({ match: { params } }) {
 
       <div className="media-player">
         <ReactHlsPlayer
-          src="http://localhost:8085/hls/test.m3u8"
-          autoPlay={false}
+          playerRef={playerRef}
+          src="http://139.59.152.193:8080/hls/test.m3u8"
+          autoPlay={true}
           controls={true}
           width="100%"
           height="auto"
         />,
       </div>
+      <button className="btn btn-primary" onClick={() => { playVideo(); } }>
+        Play video
+      </button>
     </>
   );
 
