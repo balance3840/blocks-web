@@ -79,7 +79,7 @@ var reactMoveForwardField = {
   "args0": [
     {
       "type": "field_input",
-      "name": "STEPS",
+      "name": "SECONDS",
       "text": "20",
     },
   ],
@@ -100,7 +100,7 @@ var reactMoveBackwardsField = {
   "args0": [
     {
       "type": "field_input",
-      "name": "STEPS",
+      "name": "SECONDS",
       "text": "20",
     },
   ],
@@ -121,7 +121,7 @@ var reactMoveLeftField = {
   "args0": [
     {
       "type": "field_input",
-      "name": "STEPS",
+      "name": "SECONDS",
       "text": "20",
     },
   ],
@@ -142,7 +142,7 @@ var reactMoveRightField = {
   "args0": [
     {
       "type": "field_input",
-      "name": "STEPS",
+      "name": "SECONDS",
       "text": "20",
     },
   ],

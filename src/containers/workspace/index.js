@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useLayoutEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 import BlocklyComponent, {
   Block,
@@ -28,6 +28,7 @@ export default function WorkspaceContainer({ match: { params } }) {
   const [loading, setLoading] = useState(true);
   const [blocksRender, setBlocksRender] = useState(0);
   const taskXmlName = `task-${id}-xml`;
+  const [videoView, setVideoView] = useState(false);
 
   const simpleWorkspace = useRef();
   const playerRef = useRef();
@@ -44,10 +45,14 @@ export default function WorkspaceContainer({ match: { params } }) {
   };
 
   function generateCode() {
-    var code = BlocklyJS.workspaceToCode(
+    let code = BlocklyJS.workspaceToCode(
       simpleWorkspace.current.workspace
     );
+    if(!code.includes('{')) {
+      code = `{\n ${code} }`;
+    }
     console.log(code);
+    setVideoView(true);
   };
 
   function saveComment() {
@@ -121,11 +126,12 @@ export default function WorkspaceContainer({ match: { params } }) {
     setBlocksRender(blocksRender + 1);
   }, [blocksRender])
 
-  function playVideo() {
-    playerRef.current.play();
+  function backTaskView() {
+    setVideoView(false);
+    setBlocksRender(blocksRender + 1);
   }
 
-  function renderContent() {
+  function renderDefaultContent() {
     return (
       <>
         {task && (
@@ -150,16 +156,6 @@ export default function WorkspaceContainer({ match: { params } }) {
           <Block type="test_move_left" />
           <Block type="test_move_right" />
           <Block type="test_wait" />
-          <Block type="test_react_field" />
-          <Block type="test_react_date_field" />
-          <Block type="controls_ifelse" />
-          <Block type="controls_whileUntil" />
-          <Block type="math_arithmetic" />
-          <Block type="text_print" />
-          <Block type="text" />
-          <Block type="math_number" />
-          <Block type="logic_compare" />
-          <Block type="logic_operation" />
           <Block type="controls_repeat_ext">
             <Value name="TIMES">
               <Shadow type="math_number">
@@ -167,22 +163,10 @@ export default function WorkspaceContainer({ match: { params } }) {
               </Shadow>
             </Value>
           </Block>
-          <Block type="logic_operation" />
-          <Block type="logic_negate" />
-          <Block type="logic_boolean" />
-          <Block type="logic_null" disabled="true" />
-          <Block type="logic_ternary" />
-          <Block type="text_charAt">
-            <Value name="VALUE">
-              <Block type="variables_get">
-                <Field name="VAR">text</Field>
-              </Block>
-            </Value>
-          </Block>
         </BlocklyComponent>
 
         <div className="mt-5 mb-5 d-flex justify-content-end">
-          <button className="btn btn-primary" onClick={() => generateXml()}>Enviar código</button>
+          <button className="btn btn-primary" onClick={() => generateCode()}>Enviar código</button>
         </div>
 
         <div style={{ background: 'white', borderRadius: '10px' }}>
@@ -242,16 +226,30 @@ export default function WorkspaceContainer({ match: { params } }) {
             </div>
           </form>
         </div>
+      </>
+    )
+  }
 
-        <div className="media-player">
+  function renderContent() {
+    return videoView ? renderVideoContent() : renderDefaultContent()
+  }
+
+  function renderVideoContent() {
+    return (
+      <>
+      <h2 className="mt-4">{task.title}: video en tiempo real del código enviado</h2>
+        <div className="media-player mt-4">
           <ReactHlsPlayer
             playerRef={playerRef}
             src="https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
             autoPlay={true}
             controls={true}
             width="100%"
-            height="auto"
-          />,
+            height="425px"
+          />
+        </div>
+        <div className="d-flex justify-content-center mt-4 mb-5">
+          <button className="btn btn-primary" onClick={() => backTaskView()}>Volver a la vista de la tarea</button>
         </div>
       </>
     )
