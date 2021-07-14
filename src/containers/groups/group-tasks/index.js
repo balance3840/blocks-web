@@ -16,7 +16,7 @@ export default function GroupTasksContainer({ match: { params } }) {
 
   return (
     <div className="mt-3">
-      <h1>Tareas del grupo</h1>
+      <h1>Tareas del grupo: { tasks.length && tasks[0].group.name }</h1>
       <div className="row mt-3">
         {tasks.map((task) => (
           <div key={task.id} className="col-auto">
