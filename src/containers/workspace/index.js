@@ -104,8 +104,8 @@ export default function WorkspaceContainer({ match: { params } }) {
   }, [])
 
   useEffect(() => {
-    task && comments.length && setLoading(false);
-  }, [task, comments])
+    task && setLoading(false);
+  }, [task])
 
   useEffect(() => {
     if (simpleWorkspace.current) {
