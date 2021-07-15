@@ -1,11 +1,22 @@
 import React, { Fragment } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { getAuthUser, getUserDisplayName } from "../utils/misc";
+import { logoutUser } from "../api/users.requests";
+import { getUserDisplayName, logout } from "../utils/misc";
 
 export function AuthWrapper({ children }) {
   const location = useLocation();
   const path = location.pathname;
   const userDisplayName = getUserDisplayName();
+
+  function handleLogout() {
+    logoutUser().then(response => {
+      if(response.status === 200) {
+        localStorage.removeItem('user');
+        window.location.reload();
+      }
+    })
+  }
+
   return (
     <Fragment>
       <nav
@@ -115,35 +126,6 @@ export function AuthWrapper({ children }) {
               className="collapse navbar-collapse"
               id="navbarSupportedContent"
             >
-              {/* Search form */}
-              <form
-                className="navbar-search navbar-search-light form-inline mr-sm-3"
-                id="navbar-search-main"
-              >
-                <div className="form-group mb-0">
-                  <div className="input-group input-group-alternative input-group-merge">
-                    <div className="input-group-prepend">
-                      <span className="input-group-text">
-                        <i className="fas fa-search" />
-                      </span>
-                    </div>
-                    <input
-                      className="form-control"
-                      placeholder="Search"
-                      type="text"
-                    />
-                  </div>
-                </div>
-                <button
-                  type="button"
-                  className="close"
-                  data-action="search-close"
-                  data-target="#navbar-search-main"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">×</span>
-                </button>
-              </form>
               {/* Navbar links */}
               <ul className="navbar-nav align-items-center  ml-md-auto ">
                 <li className="nav-item d-xl-none">
@@ -342,58 +324,6 @@ export function AuthWrapper({ children }) {
                     </a>
                   </div>
                 </li>
-                <li className="nav-item dropdown">
-                  <a
-                    className="nav-link"
-                    href="#"
-                    role="button"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    <i className="ni ni-ungroup" />
-                  </a>
-                  <div className="dropdown-menu dropdown-menu-lg dropdown-menu-dark bg-default  dropdown-menu-right ">
-                    <div className="row shortcuts px-4">
-                      <a href="#!" className="col-4 shortcut-item">
-                        <span className="shortcut-media avatar rounded-circle bg-gradient-red">
-                          <i className="ni ni-calendar-grid-58" />
-                        </span>
-                        <small>Calendar</small>
-                      </a>
-                      <a href="#!" className="col-4 shortcut-item">
-                        <span className="shortcut-media avatar rounded-circle bg-gradient-orange">
-                          <i className="ni ni-email-83" />
-                        </span>
-                        <small>Email</small>
-                      </a>
-                      <a href="#!" className="col-4 shortcut-item">
-                        <span className="shortcut-media avatar rounded-circle bg-gradient-info">
-                          <i className="ni ni-credit-card" />
-                        </span>
-                        <small>Payments</small>
-                      </a>
-                      <a href="#!" className="col-4 shortcut-item">
-                        <span className="shortcut-media avatar rounded-circle bg-gradient-green">
-                          <i className="ni ni-books" />
-                        </span>
-                        <small>Reports</small>
-                      </a>
-                      <a href="#!" className="col-4 shortcut-item">
-                        <span className="shortcut-media avatar rounded-circle bg-gradient-purple">
-                          <i className="ni ni-pin-3" />
-                        </span>
-                        <small>Maps</small>
-                      </a>
-                      <a href="#!" className="col-4 shortcut-item">
-                        <span className="shortcut-media avatar rounded-circle bg-gradient-yellow">
-                          <i className="ni ni-basket" />
-                        </span>
-                        <small>Shop</small>
-                      </a>
-                    </div>
-                  </div>
-                </li>
               </ul>
               <ul className="navbar-nav align-items-center  ml-auto ml-md-0 ">
                 <li className="nav-item dropdown">
@@ -421,28 +351,16 @@ export function AuthWrapper({ children }) {
                   </a>
                   <div className="dropdown-menu  dropdown-menu-right ">
                     <div className="dropdown-header noti-title">
-                      <h6 className="text-overflow m-0">Welcome!</h6>
+                      <h6 className="text-overflow m-0">¡Bienvenido!</h6>
                     </div>
                     <a href="#!" className="dropdown-item">
                       <i className="ni ni-single-02" />
-                      <span>My profile</span>
-                    </a>
-                    <a href="#!" className="dropdown-item">
-                      <i className="ni ni-settings-gear-65" />
-                      <span>Settings</span>
-                    </a>
-                    <a href="#!" className="dropdown-item">
-                      <i className="ni ni-calendar-grid-58" />
-                      <span>Activity</span>
-                    </a>
-                    <a href="#!" className="dropdown-item">
-                      <i className="ni ni-support-16" />
-                      <span>Support</span>
+                      <span>Mi perfil</span>
                     </a>
                     <div className="dropdown-divider" />
-                    <a href="#!" className="dropdown-item">
+                    <a href="#!" onClick={() => handleLogout()} className="dropdown-item">
                       <i className="ni ni-user-run" />
-                      <span>Logout</span>
+                      <span>Cerrar sesión</span>
                     </a>
                   </div>
                 </li>

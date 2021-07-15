@@ -1,3 +1,5 @@
+import { logoutUser } from "../api/users.requests";
+
 export function getAuthUser() {
     const user = localStorage.getItem("user");
     return JSON.parse(user);

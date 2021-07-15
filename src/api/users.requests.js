@@ -52,3 +52,13 @@ export function editUser(id, data) {
     return response.json();
   });
 }
+
+export function logoutUser() {
+  return fetch(`${BASE_URL}/logout`, {
+    method: "POST",
+    headers: REQUEST_HEADERS_WITH_AUTH,
+    cache: "no-cache",
+  }).then((response) => {
+    return response.json();
+  });
+}
