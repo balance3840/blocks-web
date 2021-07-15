@@ -7,6 +7,8 @@ import { AuthWrapper } from "./auth-wrapper";
 import GroupsContainer from "./groups";
 import TasksContainer from "./tasks";
 import UsersContainer from "./users";
+import ProfileContainer from "./profile";
+
 
 /**
  * Renders the private routes.
@@ -23,6 +25,7 @@ function renderPrivateRoutes() {
           <Route path="/groups" component={GroupsContainer} />
           <Route path="/tasks" component={TasksContainer} />
           <Route path="/users" component={UsersContainer} />
+          <Route path="/profile" component={ProfileContainer} />
           <Redirect to="/" />
         </Switch>
       </AuthWrapper>

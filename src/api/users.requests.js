@@ -62,3 +62,14 @@ export function logoutUser() {
     return response.json();
   });
 }
+
+export function changePassword(data) {
+  return fetch(`${BASE_URL}/users/change-password`, {
+    method: "POST",
+    headers: REQUEST_HEADERS_WITH_AUTH,
+    body: JSON.stringify(data),
+    cache: "no-cache",
+  }).then((response) => {
+    return response.json();
+  });
+}

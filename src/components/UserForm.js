@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getRoles } from "../api/role.requests";
 
-export default function UserForm({ user, onSubmit }) {
+export default function UserForm({ user, onSubmit, formTitle, hideRole }) {
   const authUser = JSON.parse(localStorage.getItem("user"));
   const [roles, setRoles] = useState([]);
   const [form, setForm] = useState({
@@ -26,7 +26,7 @@ export default function UserForm({ user, onSubmit }) {
             <div className="row align-items-center">
               <div className="col-8">
                 <h3 className="mb-0">
-                  {user ? "Editar usuario" : "Crear usuario"}
+                  { formTitle ? formTitle : user ? "Editar usuario" : "Crear usuario"}
                 </h3>
               </div>
             </div>
@@ -34,7 +34,7 @@ export default function UserForm({ user, onSubmit }) {
           <div className="card-body">
             <form>
               <h6 className="heading-small text-muted mb-4">
-                Información de la usuario
+                Información del usuario
               </h6>
               <div className="pl-md-4">
                 <div className="row">
@@ -91,6 +91,7 @@ export default function UserForm({ user, onSubmit }) {
                       />
                     </div>
                   </div>
+                  { !hideRole &&
                   <div className="col-md-6">
                     <div className="form-group">
                       <label
@@ -115,7 +116,7 @@ export default function UserForm({ user, onSubmit }) {
                         ))}
                       </select>
                     </div>
-                  </div>
+                  </div> }
                 </div>
                 <div className="d-flex justify-content-end">
                   <button

@@ -90,7 +90,7 @@ export function AuthWrapper({ children }) {
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="profile.html">
+                    <a className="nav-link" href="/profile">
                       <i className="ni ni-single-02 text-primary" />
                       <span className="nav-link-text">Perfil</span>
                     </a>
@@ -353,7 +353,7 @@ export function AuthWrapper({ children }) {
                     <div className="dropdown-header noti-title">
                       <h6 className="text-overflow m-0">¡Bienvenido!</h6>
                     </div>
-                    <a href="#!" className="dropdown-item">
+                    <a href="/profile" className="dropdown-item">
                       <i className="ni ni-single-02" />
                       <span>Mi perfil</span>
                     </a>
