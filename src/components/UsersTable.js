@@ -1,13 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { isStudent } from "../utils/misc";
 
 export default function UsersTable({ users }) {
   return (
     <div className="card">
       <div className="card-header border-0 d-flex justify-content-between align-items-center">
         <div>
-          <h3 className="mb-0">Mis usuarios</h3>
+          <h3 className="mb-0">Usuarios</h3>
         </div>
+        {!isStudent() && (
+          <div>
+            <Link className="btn btn-primary" to={"/users/create"}>Crear usuario</Link>
+          </div>
+        )}
       </div>
       <div className="table-responsive">
         <table className="table align-items-center table-flush">
@@ -38,23 +44,25 @@ export default function UsersTable({ users }) {
                 <td>{user.lastname}</td>
                 <td>{user.email}</td>
                 <td className="text-right">
-                  <div className="dropdown">
-                    <a
-                      className="btn btn-sm btn-icon-only text-light"
-                      href="#"
-                      role="button"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                      <i className="fas fa-ellipsis-v" />
-                    </a>
-                    <div className="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                      <Link to={`/users/${user.id}/edit`} className="dropdown-item">
-                        Editar usuario
-                      </Link>
+                  {!isStudent() && (
+                    <div className="dropdown">
+                      <a
+                        className="btn btn-sm btn-icon-only text-light"
+                        href="#"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        <i className="fas fa-ellipsis-v" />
+                      </a>
+                      <div className="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                        <Link to={`/users/${user.id}/edit`} className="dropdown-item">
+                          Editar usuario
+                        </Link>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </td>
               </tr>
             ))}

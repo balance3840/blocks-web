@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { logoutUser } from "../api/users.requests";
-import { getUserDisplayName, logout } from "../utils/misc";
+import { getUserDisplayName, isAdmin, isTeacher, logout } from "../utils/misc";
 
 export function AuthWrapper({ children }) {
   const location = useLocation();
@@ -58,8 +58,8 @@ export function AuthWrapper({ children }) {
                     <Link
                       to={"/dashboard"}
                       className={`nav-link ${path === "/" || path.includes("/dashboard")
-                          ? "active"
-                          : ""
+                        ? "active"
+                        : ""
                         }`}
                     >
                       <i className="ni ni-tv-2 text-primary" />
@@ -72,7 +72,7 @@ export function AuthWrapper({ children }) {
                       className={`nav-link ${path.includes("/groups") ? "active" : ""
                         }`}
                     >
-                      <i className="fa fa-users text-primary" />
+                      <i className="fa fa-object-group text-primary" />
                       <span className="nav-link-text">Grupos</span>
                     </Link>
                   </li>
@@ -86,6 +86,18 @@ export function AuthWrapper({ children }) {
                       <span className="nav-link-text">Tareas</span>
                     </Link>
                   </li>
+                  {(isAdmin() || isTeacher()) && (
+                    <li className="nav-item">
+                      <Link
+                        to={"/users"}
+                        className={`nav-link ${path.includes("/users") ? "active" : ""
+                          }`}
+                      >
+                        <i className="fa fa-users text-primary" />
+                        <span className="nav-link-text">Usuarios</span>
+                      </Link>
+                    </li>
+                  )}
                   <li className="nav-item">
                     <a className="nav-link" href="/profile">
                       <i className="ni ni-single-02 text-primary" />
