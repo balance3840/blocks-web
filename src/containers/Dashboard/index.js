@@ -67,14 +67,13 @@ function render(groups, tasks, myStudentTasks) {
   const _isTeacher = isTeacher();
   return (
     <>
-      {(_isAdmin ||
-        _isTeacher) && (
-          <div className="row mt-5">
-            <div className="col">
-              {groups && <GroupsTable groups={groups} />}
-            </div>
-          </div>
-        )}
+
+      <div className="row mt-5">
+        <div className="col">
+          {groups && <GroupsTable groups={groups} />}
+        </div>
+      </div>
+
       <div className="row mt-5">
         <div className="col">
           {tasks && <TasksTable tasks={tasks} />}
@@ -102,9 +101,8 @@ function DashboardContainer({
   const [tasks, setTasks] = useState([]);
   const [myStudentTasks, setMyStudentsTasks] = useState([]);
   const _isAdmin = isAdmin();
-  const _isTeacher = isTeacher();
   const onlyMine = _isAdmin ? false : true;
-  const onlyMineGroups = _isTeacher ? true : false;
+  const onlyMineGroups = !_isAdmin ? true : false;
 
   useEffect(() => {
     dispatchGetGroups();

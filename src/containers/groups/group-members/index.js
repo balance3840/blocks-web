@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getGroupMembers } from "../../../api/group.requests";
+import { isAdmin, isTeacher } from "../../../utils/misc";
 
 export default function GroupMembersContainer({ match: { params } }) {
   const [members, setMembers] = useState([]);
@@ -27,26 +28,27 @@ export default function GroupMembersContainer({ match: { params } }) {
                       <h5 className="card-title text-uppercase text-muted mb-0">
                         {member.role.name}
                       </h5>
-                      <div className="dropdown">
-                        <a
-                          className="btn btn-sm btn-icon-only text-light mr-0 ml-0 border"
-                          href="#"
-                          role="button"
-                          data-toggle="dropdown"
-                          aria-haspopup="true"
-                          aria-expanded="false"
-                        >
-                          <i className="fas fa-ellipsis-v" />
-                        </a>
-                        <div className="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                          <Link
-                            to={`/users/${member.id}/edit`}
-                            className="dropdown-item"
+                      {(isAdmin() || isTeacher()) && (
+                        <div className="dropdown">
+                          <a
+                            className="btn btn-sm btn-icon-only text-light mr-0 ml-0 border"
+                            href="#"
+                            role="button"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
                           >
-                            Editar
-                        </Link>
-                        </div>
-                      </div>
+                            <i className="fas fa-ellipsis-v" />
+                          </a>
+                          <div className="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                            <Link
+                              to={`/users/${member.id}/edit`}
+                              className="dropdown-item"
+                            >
+                              Editar
+                            </Link>
+                          </div>
+                        </div>)}
                     </div>
                     <span className="h2 font-weight-bold mb-0">{member.name} {member.lastname}</span>
                   </div>

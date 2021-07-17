@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getGroupTasks } from "../../../api/group.requests";
 import { Link } from "react-router-dom";
+import { isAdmin, isTeacher } from "../../../utils/misc";
 
 export default function GroupTasksContainer({ match: { params } }) {
   const [tasks, setTasks] = useState([]);
@@ -34,6 +35,7 @@ export default function GroupTasksContainer({ match: { params } }) {
                       <h5 className="card-title text-uppercase text-muted mb-0">
                         {task.status.name}
                       </h5>
+                      { (isAdmin() || isTeacher()) && (
                       <div className="dropdown">
                         <a
                           className="btn btn-sm btn-icon-only text-light"
@@ -53,7 +55,7 @@ export default function GroupTasksContainer({ match: { params } }) {
                             Editar
                           </Link>
                         </div>
-                      </div>
+                      </div> )}
                     </div>
                     <span className="h2 font-weight-bold mb-0">
                       {task.title}

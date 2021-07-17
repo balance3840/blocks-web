@@ -9,7 +9,7 @@ import { getGroupsRequest } from "../../../api/group.requests";
 
 import Loader from "react-loader-spinner";
 import GroupsTable from "../../../components/GroupsTable";
-import { isTeacher } from "../../../utils/misc";
+import { isAdmin } from "../../../utils/misc";
 
 /**
  * a factory function that connects to the provider
@@ -79,8 +79,8 @@ function GroupListContainer({
   dispatchgetGroupsFailure,
 }) {
   const [groupsLength, setGroupsLength] = useState();
-  const _isTeacher = isTeacher();
-  const onlyMineGroups = _isTeacher ? true : false;
+  const _isAdmin = isAdmin();
+  const onlyMineGroups = !_isAdmin ? true : false;
 
   useEffect(() => {
     dispatchGetGroups();

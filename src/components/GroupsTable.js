@@ -52,7 +52,7 @@ export default function GroupsTable({ groups }) {
                 <td>{group.description}</td>
                 <td>{group.grade}</td>
                 <td>{group.stage.name}</td>
-                {(_isTeacher || _isAdmin) && (
+                {(_isTeacher || _isAdmin) ? (
                   <td className="text-right">
                     <div className="dropdown">
                       <a
@@ -99,6 +99,35 @@ export default function GroupsTable({ groups }) {
                       </div>
                     </div>
                   </td>
+                ) : (
+                  <td className="text-right">
+                  <div className="dropdown">
+                    <a
+                      className="btn btn-sm btn-icon-only text-light"
+                      href="#"
+                      role="button"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      <i className="fas fa-ellipsis-v" />
+                    </a>
+                    <div className="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                      <Link
+                        to={`/groups/${group.id}/members`}
+                        className="dropdown-item"
+                      >
+                        Ver miembros
+                      </Link>
+                      <Link
+                        to={`/groups/${group.id}/tasks`}
+                        className="dropdown-item"
+                      >
+                        Ver tareas
+                      </Link>
+                    </div>
+                  </div>
+                </td>
                 )}
               </tr>
             ))}
