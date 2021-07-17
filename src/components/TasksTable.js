@@ -5,6 +5,7 @@ import { isAdmin, isTeacher } from "../utils/misc";
 export default function TasksTable({ tasks }) {
   const _isAdmin = isAdmin();
   const _isTeacher = isTeacher();
+  const canEdit = _isAdmin || _isTeacher;
 
   return (
     <div className="card">
@@ -61,6 +62,11 @@ export default function TasksTable({ tasks }) {
                       <Link to={`/tasks/${task.id}/workspace`} className="dropdown-item">
                         Resolver tarea
                       </Link>
+                      {canEdit && (
+                        <Link to={`/tasks/${task.id}/edit`} className="dropdown-item">
+                          Edtar tarea
+                        </Link>
+                      )}
                     </div>
                   </div>
                 </td>

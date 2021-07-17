@@ -71,19 +71,20 @@ function render(groups, tasks, myStudentTasks) {
         _isTeacher) && (
           <div className="row mt-5">
             <div className="col">
-              { groups && <GroupsTable groups={groups} /> }
+              {groups && <GroupsTable groups={groups} />}
             </div>
           </div>
         )}
       <div className="row mt-5">
         <div className="col">
-          { tasks && <TasksTable tasks={tasks} /> }
+          {tasks && <TasksTable tasks={tasks} />}
         </div>
       </div>
 
       <div className="row mt-5">
         <div className="col">
-          { tasks && <TasksResultTable tasksResult={myStudentTasks} /> }
+          {tasks && (_isAdmin ||
+            _isTeacher) && <TasksResultTable tasksResult={myStudentTasks} actionText={'Ver resultado'} />}
         </div>
       </div>
     </>
@@ -121,7 +122,7 @@ function DashboardContainer({
     getMyStudentsTasks().then(response => {
       setMyStudentsTasks(response.data);
     });
-    return () => {};
+    return () => { };
   }, [groupsLength]);
 
   return loading ? renderLoading() : render(groups, tasks, myStudentTasks);

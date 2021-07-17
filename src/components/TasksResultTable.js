@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { getUserDisplayName, isAdmin, isTeacher } from "../utils/misc";
 
-export default function TasksResultTable({ tasksResult }) {
+export default function TasksResultTable({ tasksResult, actionText }) {
   const _isAdmin = isAdmin();
   const _isTeacher = isTeacher();
 
@@ -59,7 +59,7 @@ export default function TasksResultTable({ tasksResult }) {
                     </a>
                     <div className="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                       <Link to={`/tasks/${taskResult.task_id}/workspace`} className="dropdown-item">
-                        Resolver tarea
+                        { actionText ? actionText : 'Resolver tarea' }
                       </Link>
                     </div>
                   </div>

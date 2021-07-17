@@ -1,5 +1,3 @@
-import { logoutUser } from "../api/users.requests";
-
 export function getAuthUser() {
     const user = localStorage.getItem("user");
     return JSON.parse(user);
@@ -7,13 +5,19 @@ export function getAuthUser() {
 
 export function isAdmin() {
     const user = getAuthUser();
-    const isAdmin = user.role.name === "Administrador";
+    const isAdmin = user.role.id === 1;
     return isAdmin;
 }
 
 export function isTeacher() {
     const user = getAuthUser();
-    const isTeacher = user.role.name === "Profesor";
+    const isTeacher = user.role.id === 2;
+    return isTeacher;
+}
+
+export function isStudent() {
+    const user = getAuthUser();
+    const isTeacher = user.role.id === 3;
     return isTeacher;
 }
 
