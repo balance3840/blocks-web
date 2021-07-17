@@ -10,7 +10,7 @@ export function AuthWrapper({ children }) {
 
   function handleLogout() {
     logoutUser().then(response => {
-      if(response.status === 200) {
+      if (response.status === 200) {
         localStorage.removeItem('user');
         window.location.reload();
       }
@@ -38,13 +38,13 @@ export function AuthWrapper({ children }) {
           >
             {/* Brand */}
             <div className="sidenav-header  align-items-center">
-              <a className="navbar-brand" href="javascript:void(0)">
+              <Link className="navbar-brand" to={'#'}>
                 <img
                   src="/assets/img/brand/brand-logo.png"
                   className="navbar-brand-img"
                   alt="..."
                 />
-              </a>
+              </Link>
             </div>
             <div className="navbar-inner">
               {/* Collapse */}
@@ -57,11 +57,10 @@ export function AuthWrapper({ children }) {
                   <li className="nav-item">
                     <Link
                       to={"/dashboard"}
-                      className={`nav-link ${
-                        path === "/" || path.includes("/dashboard")
+                      className={`nav-link ${path === "/" || path.includes("/dashboard")
                           ? "active"
                           : ""
-                      }`}
+                        }`}
                     >
                       <i className="ni ni-tv-2 text-primary" />
                       <span className="nav-link-text">Dashboard</span>
@@ -70,9 +69,8 @@ export function AuthWrapper({ children }) {
                   <li className="nav-item">
                     <Link
                       to={"/groups"}
-                      className={`nav-link ${
-                        path.includes("/groups") ? "active" : ""
-                      }`}
+                      className={`nav-link ${path.includes("/groups") ? "active" : ""
+                        }`}
                     >
                       <i className="fa fa-users text-primary" />
                       <span className="nav-link-text">Grupos</span>
@@ -81,9 +79,8 @@ export function AuthWrapper({ children }) {
                   <li className="nav-item">
                     <Link
                       to={"/tasks"}
-                      className={`nav-link ${
-                        path.includes("/tasks") ? "active" : ""
-                      }`}
+                      className={`nav-link ${path.includes("/tasks") ? "active" : ""
+                        }`}
                     >
                       <i className="fa fa-tasks text-primary" />
                       <span className="nav-link-text">Tareas</span>
@@ -353,15 +350,15 @@ export function AuthWrapper({ children }) {
                     <div className="dropdown-header noti-title">
                       <h6 className="text-overflow m-0">¡Bienvenido!</h6>
                     </div>
-                    <a href="/profile" className="dropdown-item">
+                    <Link to={'/profile'} className="dropdown-item">
                       <i className="ni ni-single-02" />
                       <span>Mi perfil</span>
-                    </a>
+                    </Link>
                     <div className="dropdown-divider" />
-                    <a href="#!" onClick={() => handleLogout()} className="dropdown-item">
+                    <Link to={'#'} onClick={() => handleLogout()} className="dropdown-item">
                       <i className="ni ni-user-run" />
                       <span>Cerrar sesión</span>
-                    </a>
+                    </Link>
                   </div>
                 </li>
               </ul>
