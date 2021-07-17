@@ -11,7 +11,7 @@ export default function TasksTable({ tasks }) {
     <div className="card">
       <div className="card-header border-0 d-flex justify-content-between align-items-center">
         <div>
-          <h3 className="mb-0">Mis tareas</h3>
+          <h3 className="mb-0">Tareas</h3>
         </div>
       </div>
       <div className="table-responsive">

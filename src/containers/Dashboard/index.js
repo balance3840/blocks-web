@@ -83,7 +83,7 @@ function render(groups, tasks, myStudentTasks) {
 
       <div className="row mt-5">
         <div className="col">
-          {tasks && (_isAdmin ||
+          {myStudentTasks && (_isAdmin ||
             _isTeacher) && <TasksResultTable tasksResult={myStudentTasks} actionText={'Ver resultado'} />}
         </div>
       </div>

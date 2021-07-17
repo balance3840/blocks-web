@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import UserForm from "../../../components/UserForm";
-import { isTeacher } from "../../../utils/misc";
+import { isAdmin, isTeacher } from "../../../utils/misc";
 import { getUser, editUser } from "../../../api/users.requests";
 
 export default function UserEditContainer({ match: { params } }) {
   const [user, setUser] = useState(null);
   const { id } = params;
   const onlyMineUsers = isTeacher();
+  const _isAdmin = isAdmin();
 
   useEffect(() => {
     getUser(id, onlyMineUsers).then((response) => {
@@ -14,7 +15,7 @@ export default function UserEditContainer({ match: { params } }) {
     });
   }, []);
 
-  return user ? <UserForm user={user} onSubmit={onSubmit} /> : "";
+  return user ? <UserForm hideRole={!_isAdmin} user={user} onSubmit={onSubmit} /> : "";
 
   function onSubmit(user) {
     editUser(id, user).then((response) => {

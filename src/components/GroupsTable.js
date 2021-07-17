@@ -10,7 +10,7 @@ export default function GroupsTable({ groups }) {
     <div className="card">
       <div className="card-header border-0 d-flex justify-content-between align-items-center">
         <div>
-          <h3 className="mb-0">Mis grupos</h3>
+          <h3 className="mb-0">Grupos</h3>
         </div>
         {(_isAdmin || _isTeacher) && (
           <div>
