@@ -3,7 +3,7 @@ FROM node:12 as node
 
 COPY . .
 
-RUN cp env.example.js env.js
+RUN cp ./src/env.example.js ./src/env.js
 
 RUN yarn
 RUN yarn build
