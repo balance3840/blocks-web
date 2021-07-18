@@ -1,4 +1,6 @@
-export const BASE_URL = "http://localhost:8080/api";
+import { API_URL } from "../env";
+
+export const BASE_URL = API_URL;
 
 const user = JSON.parse(localStorage.getItem('user'));
 const token = user?.token;
