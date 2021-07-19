@@ -59,9 +59,6 @@ export default function TasksTable({ tasks }) {
                       <i className="fas fa-ellipsis-v" />
                     </a>
                     <div className="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                      <Link to={`/tasks/${task.id}/workspace`} className="dropdown-item">
-                        Resolver tarea
-                      </Link>
                       {canEdit && (
                         <Link to={`/tasks/${task.id}/edit`} className="dropdown-item">
                           Edtar tarea

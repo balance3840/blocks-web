@@ -14,7 +14,7 @@ import ReactHlsPlayer from 'react-hls-player';
 import "../../components/blocks/customblocks";
 import "../../components/generator/generator";
 import { createTaskComment, deleteTaskComment, editTaskComment, getTask, getTaskComments } from "../../api/task.request";
-import { getUserDisplayName } from "../../utils/misc";
+import { getAuthUser, getUserDisplayName } from "../../utils/misc";
 import { Link } from "react-router-dom";
 import Loader from "../../components/Loader";
 
@@ -29,6 +29,7 @@ export default function WorkspaceContainer({ match: { params } }) {
   const [blocksRender, setBlocksRender] = useState(0);
   const taskXmlName = `task-${id}-xml`;
   const [videoView, setVideoView] = useState(false);
+  const authUser = getAuthUser();
 
   const simpleWorkspace = useRef();
   const playerRef = useRef();
@@ -48,7 +49,7 @@ export default function WorkspaceContainer({ match: { params } }) {
     let code = BlocklyJS.workspaceToCode(
       simpleWorkspace.current.workspace
     );
-    if(!code.includes('{')) {
+    if (!code.includes('{')) {
       code = `{\n ${code} }`;
     }
     console.log(code);
@@ -180,32 +181,33 @@ export default function WorkspaceContainer({ match: { params } }) {
                   <div className="comment-date">
                     {new Date(comment.created_at).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' })}
                   </div>
-                  <div className="comment-options">
-                    <div className="dropdown">
-                      <a
-                        className="btn btn-sm btn-icon-only text-light"
-                        href="#"
-                        role="button"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                      >
-                        <i className="fas fa-ellipsis-v" />
-                      </a>
-                      <div className="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                        <Link to={'#'} onClick={() => {
-                          setComment(comment.comment);
-                          setEditingComment(comment);
-                        }
-                        } className="dropdown-item">
-                          Editar comentario
-                        </Link>
-                        <Link to={'#'} onClick={(e) => deleteComment(e, comment.task_id, comment.id)} className="dropdown-item">
-                          Eliminar comentario
-                        </Link>
+                  {comment.user_id === authUser.id && (
+                    <div className="comment-options">
+                      <div className="dropdown">
+                        <a
+                          className="btn btn-sm btn-icon-only text-light"
+                          href="#"
+                          role="button"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                          <i className="fas fa-ellipsis-v" />
+                        </a>
+                        <div className="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                          <Link to={'#'} onClick={() => {
+                            setComment(comment.comment);
+                            setEditingComment(comment);
+                          }
+                          } className="dropdown-item">
+                            Editar comentario
+                          </Link>
+                          <Link to={'#'} onClick={(e) => deleteComment(e, comment.task_id, comment.id)} className="dropdown-item">
+                            Eliminar comentario
+                          </Link>
+                        </div>
                       </div>
-                    </div>
-                  </div>
+                    </div>)}
                 </div>
                 <div className="comment-content">
                   <p className="m-0 p-0">{comment.comment}</p>
@@ -237,7 +239,7 @@ export default function WorkspaceContainer({ match: { params } }) {
   function renderVideoContent() {
     return (
       <>
-      <h2 className="mt-4">{task.title}: video en tiempo real del código enviado</h2>
+        <h2 className="mt-4">{task.title}: video en tiempo real del código enviado</h2>
         <div className="media-player mt-4">
           <ReactHlsPlayer
             playerRef={playerRef}
