@@ -17,6 +17,7 @@ import { createTaskComment, deleteTaskComment, editTaskComment, getTask, getTask
 import { getAuthUser, getUserDisplayName } from "../../utils/misc";
 import { Link } from "react-router-dom";
 import Loader from "../../components/Loader";
+import { STREAM_URL } from "../../env";
 
 export default function WorkspaceContainer({ match: { params } }) {
   const { id } = params;
@@ -243,7 +244,7 @@ export default function WorkspaceContainer({ match: { params } }) {
         <div className="media-player mt-4">
           <ReactHlsPlayer
             playerRef={playerRef}
-            src="https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
+            src={STREAM_URL}
             autoPlay={true}
             controls={true}
             width="100%"
