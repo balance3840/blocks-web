@@ -1,0 +1,12 @@
+# ---- Base ----
+FROM node:12 as node
+
+WORKDIR /app
+
+COPY . .
+
+RUN cp ./src/env.example.js ./src/env.js
+
+RUN yarn
+
+CMD [ "yarn", "start" ]

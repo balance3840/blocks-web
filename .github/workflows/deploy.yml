@@ -6,6 +6,7 @@ on:
 
 env:
   IMAGE_NAME: blocks-web
+  IMAGE_NODE_NAME: blocks-web-node
   REGISTRY: repo.treescale.com/tfmblocks
 
 jobs:
@@ -18,4 +19,5 @@ jobs:
       run: |
         docker login ${{ env.REGISTRY }} --username ${{ secrets.REGISTRY_USERNAME }} --password ${{ secrets.REGISTRY_PASSWORD }}
         docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest .
+        docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NODE_NAME }}:latest -f Dockerfile.node .
         docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
