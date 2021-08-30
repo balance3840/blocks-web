@@ -1,5 +1,5 @@
 const PROTOCOL = 'http';
-const HOST = '164.90.202.196';
+const HOST = 'localhost';
 const PORT = '8080';
 const API_PATH = '/api';
 
